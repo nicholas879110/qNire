@@ -1,7 +1,10 @@
-/voteapp/.metadata
-
-/voteapp/Servers/.project
-
-/voteapp/Servers/.settings
-
-/voteapp/Servers/Tomcat v7.0 Server at localhost-config
+/*.iml
+/.idea
+/commons/target
+/framework/target
+/qn-mgr/target
+/qn-model/target
+/qn-portal/target
+/qn-security/target
+/qn-user/target
+/qn-war/target

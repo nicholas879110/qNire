@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="true">
+    <property name="baseDir" value="./logs"/>
+    <!-- 设置日志输出信息输出格式,如: "14:46:11.981 [main] INFO  [custom.java.template.App:11] - Hello World!" -->
+    <property name="log_format" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger{120}:%line] - %msg%n"/>
+    <!-- 日志名称 -->
+    <property name="log_name" value="kindgarden-En"/>
+    <!-- 配置logback控制台日志输出 -->
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder charset="UTF-8">
+            <pattern>${log_format}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 根据策略生成相关日志文件 -->
+    <appender name="rollingFile" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <Encoding>UTF-8</Encoding>
+        <!-- 滚动策略 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${baseDir}/log-%d{yyyy-MM-dd}-%i.log.zip
+            </fileNamePattern>
+            <maxHistory>30</maxHistory>
+            <TimeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>5MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- 日志内容格式设置 -->
+        <encoder>
+            <pattern>${log_format}</pattern>
+        </encoder>
+    </appender>
+
+    <!-- 控制日志输出级别 -->
+    <root>
+        <level value="ERROR"/>
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="rollingFile"/>
+        <!--<appender-ref ref="FILE"/>-->
+    </root>
+
+    <logger name="org.hibernate" level="ERROR"/>
+    <logger name="org.springframework" level="ERROR"/>
+    <logger name="org.springframework.security" level="ERROR"/>
+    <logger name="org.apache" level="ERROR"/>
+    <logger name="com.wksc">
+        <level value="DEBUG"/>
+        <appender-ref ref="rollingFile"/>
+    </logger>
+</configuration>

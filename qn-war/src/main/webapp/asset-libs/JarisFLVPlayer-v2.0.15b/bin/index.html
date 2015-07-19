@@ -1,0 +1,174 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Jaris FLV Player</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="language" content="en"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
+
+    <script src="js/swfobject.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jarisflvplayer.js"></script>
+
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<br/>
+<center>
+    <h1>Video Example</h1>
+
+    <div id="altContentOne">
+        <h1>Jaris FLV Player</h1>
+
+        <p>Alternative content</p>
+
+        <p><a href="http://www.adobe.com/go/getflashplayer"><img
+                src="http://www.adobe.com/images/shared/download_buttons/get_flash_player.gif"
+                alt="Get Adobe Flash player"/></a></p>
+    </div>
+
+</center>
+
+    <center>
+        <object
+                width="576" height="360"
+                id="playerObject"
+                data="JarisFLVPlayer.swf"
+                type="application/x-shockwave-flash"
+                >
+            <param name="allowFullscreen" value="true">
+            <param name="allowScriptAccess" value="always">
+            <param name="movie" value="JarisFLVPlayer.swf">
+            <param name="bgcolor" value="#000000">
+            <param name="quality" value="high">
+            <param name="scale" value="noscale">
+            <param name="wmode" value="opaque">
+            <param name="flashvars" value="
+                source=http://localhost:8080/jp/file/play.flv&
+                type=video&duration=52&
+                logoposition=top left&logoalpha=30&logowidth=130&
+                logolink=http://jaris.sourceforge.net&autostart=true&
+                hardwarescaling=false&controls=true&jsapi=1">
+            <!--<param name="flashvars" value="source=http://localhost:8080/jp/file/play.flv&type=video&streamtype=file&server=&duration=52&poster=http://jaris.sourceforge.net/images/poster.png&autostart=false&logo=http://jaris.sourceforge.net/images/logo.png&logoposition=top left&logoalpha=30&logowidth=130&logolink=http://jaris.sourceforge.net&hardwarescaling=false&darkcolor=000000&brightcolor=4c4c4c&controlcolor=FFFFFF&hovercolor=67A8C1">-->
+            <param name="seamlesstabbing" value="false">
+        </object>
+
+        <div style="clear: both"></div>
+
+        <div style="width: 576px; background-color: #263843">
+                <button style="padding: 5px 0 5px 0; display: block; float: left;
+        border: solid 1px #fff; color: #fff; background-color: #6D90A5"
+                        id="btnPlay" onclick="togglePlay(this)">Play</button>
+                <span style="padding: 5px; display: block; float: right; color: #fff;
+                font-weight: bold" id="seconds">
+                </span>
+            <div style="clear: both"></div>
+        </div>
+    </center>
+<center>
+    <object id="jptest" width="576" height="360" type="application/x-shockwave-flash" data="JarisFLVPlayer.swf">
+        <param name="menu" value="false">
+        <param name="scale" value="noScale">
+        <param name="allowFullscreen" value="true">
+        <param name="allowScriptAccess" value="always">
+        <param name="bgcolor" value="#000000">
+        <param name="quality" value="high">
+        <param name="wmode" value="opaque">
+        <param name="flashvars" value="source=http://localhost:8080/ce/resources/flv/2014101015161146.flv&type=video&streamtype=file&server=&duration=52&poster=/ce/file/img/video.jpg&autostart=false&logo=&logoposition=top left&logoalpha=30&logowidth=130&logolink=&hardwarescaling=false&darkcolor=000000&brightcolor=4c4c4c&controlcolor=FFFFFF&hovercolor=67A8C1&controltype=1&jsapi=1">
+    </object>
+</center>
+
+</body>
+<script type="text/javascript">
+    var flashvarsVideo = {
+        source: "http://localhost:8080/jp/file/play.flv",
+        type: "video",
+        streamtype: "file",
+        server: "",//Used for rtmp streams
+        duration: "52",
+        poster: "http://jaris.sourceforge.net/images/poster.png",
+        autostart: "false",
+        logo: "http://jaris.sourceforge.net/images/logo.png",
+        logoposition: "top left",
+        logoalpha: "30",
+        logowidth: "130",
+        logolink: "http://jaris.sourceforge.net",
+        hardwarescaling: "false",
+        darkcolor: "000000",
+        brightcolor: "4c4c4c",
+        controlcolor: "FFFFFF",
+        hovercolor: "67A8C1",
+        jsapi: 1
+    };
+
+    var params = {
+        menu: "false",
+        scale: "noScale",
+        allowFullscreen: "true",
+        allowScriptAccess: "always",
+        bgcolor: "#000000",
+        quality: "high",
+        wmode: "opaque"
+    };
+    var attributes = {
+        id: "JarisFLVPlayer"
+    };
+    swfobject.embedSWF("JarisFLVPlayer.swf", "altContentOne", "576px", "360px", "10.0.0", "expressInstall.swf", flashvarsVideo, params, attributes);
+
+    function togglePlay(caller)
+    {
+        switch(caller.innerHTML)
+        {
+            case "Pause":
+                caller.innerHTML = "Play";
+                player.pause();
+                break;
+            case "Play":
+                caller.innerHTML = "Pause";
+                player.play();
+                break;
+        }
+        console.log(swfobject.getObjectById("#altContentOne"));
+
+    }
+
+    function addEvents()
+    {
+        player.addListener(JarisFLVPlayer.event.TIME, "onTime");
+        player.addListener(JarisFLVPlayer.event.PLAYBACK_FINISHED, "onPlayBackFinished");
+    }
+
+    function onTime(data)
+    {
+        document.getElementById("seconds").innerHTML = player.getCurrentTime();
+    }
+
+    function onPlayBackFinished(data)
+    {
+        alert("playback has finished!");
+    }
+
+    player = new JarisFLVPlayer("playerObject");
+    player2 = new JarisFLVPlayer("jptest");
+
+    var int=setInterval("countTime()",5000);
+    function countTime(){
+       test();
+    }
+    function test(){
+        console.log(player.fullScreen());
+        console.log(player2.fullScreen());
+    }
+    //Create a timer with 500 miliseconds of delay to be sure the player has loaded before adding events
+    add_listener_timer = setTimeout("addEvents()", 500);
+</script>
+</html>

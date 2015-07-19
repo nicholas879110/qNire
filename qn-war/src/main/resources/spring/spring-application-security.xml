@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security" xmlns:b="http://www.springframework.org/schema/beans"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+         http://www.springframework.org/schema/security
+         http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <http pattern="/asset-libs/**" security="none" />
+    <http pattern="/assets/**" security="none" />
+    <http pattern="/resources/**" security="none"/>
+    <http pattern="/swfupload/**" security="none"/>
+    <http pattern="/*.jsp" security="none"/>
+    <http pattern="/index.jsp" security="none"/>
+    <http pattern="/lv/list.do" security="none"/>
+    <http pattern="/unit/list.do" security="none"/>
+    <http pattern="/video/list.do" security="none"/>
+    <http pattern="/video/download.do" security="none"/>
+    <http pattern="/tea/list.do" security="none"/>
+    <http pattern="/VIDEO_FILE/**" security="none"/>
+    <http pattern="/*.html" security="none"/>
+    <http auto-config="true">
+        <!--<intercept-url pattern="/video/upload.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />-->
+        <intercept-url pattern="/**"   access="ROLE_USER" />
+        <form-login login-page="/login.jsp" default-target-url="/index.jsp"
+                    always-use-default-target="true"  authentication-failure-url="/login.jsp?error=true"/>
+        <logout logout-url="/j_spring_security_logout" logout-success-url="/login.jsp" />
+    </http>
+
+    <!-- 用户的密码加密或解密 -->
+    <b:bean id="passwordEncoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder">
+        <b:property name="iterations" value="4"/>
+    </b:bean>
+
+    <!-- 密码加盐 -->
+    <b:bean id="mySaltSource" class="org.springframework.security.authentication.dao.ReflectionSaltSource">
+        <b:property name="userPropertyToUse" value="username"/>
+    </b:bean>
+
+    <!-- 认证管理 -->
+    <b:bean id="daoAuthenticationProvider" class="org.springframework.security.authentication.dao.DaoAuthenticationProvider">
+        <b:property name="userDetailsService" ref="securityUserDetailService"/>
+        <b:property name="passwordEncoder" ref="passwordEncoder"/>
+        <b:property name="saltSource" ref="mySaltSource"/>
+        <b:property name="hideUserNotFoundExceptions" value="false"/>
+    </b:bean>
+
+    <authentication-manager erase-credentials="false" alias="authenticationManager">
+        <authentication-provider ref="daoAuthenticationProvider"/>
+    </authentication-manager>
+
+    <!--<b:bean class="org.springframework.security.core.context.SecurityContextHolder" >
+       <b:property name="st"
+    </b:bean>-->
+
+
+</b:beans>

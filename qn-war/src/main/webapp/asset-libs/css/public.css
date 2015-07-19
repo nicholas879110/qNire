@@ -1,0 +1,32 @@
+
+
+
+/*loading*/
+.spin-fixed {position:fixed;left:0;top:0;}
+.spin-fixed [class*="icon-"] {top:50%;}
+
+/*字数限制样式*/
+.limiterBox {border:none;box-shadow:1px 1px 0 rgba(40,50,100,0.3);color:#fff;background:#4b89aa;}
+.limiterBox:before {border-bottom-color:#4b89aa;}
+
+/*富文本编缉器*/
+.has-error .wysiwyg-toolbar.wysiwyg-style2 {background:#d16e6c;}
+.has-error .wysiwyg-editor {border-color:#f09784;}
+
+
+input[type=checkbox].ace,
+input[type=radio].ace {
+  z-index: 9;
+}
+input[type=checkbox].ace + .lbl,
+input[type=radio].ace + .lbl {
+  z-index: 8;
+}
+
+
+/*ace_file_input */
+.ace-file-input {height:30px;line-height:30px;margin-bottom:0;}
+.ace-file-input .file-label {margin-bottom:0;}
+.ace-file-multiple {height:auto;}
+
+

@@ -1,0 +1,31 @@
+.custom-icon-flv {
+    background: url('img/flv.gif') no-repeat center center;
+}
+
+.icon-mp3 {
+    background: url('img/mp3.gif') no-repeat center center;
+}
+
+.icon-mp4 {
+    background: url('img/mp4.gif') no-repeat center center;
+}
+
+.icon-pdf {
+    background: url('img/pdf.gif') no-repeat center center;
+}
+
+.icon-ppt {
+    background: url('img/ppt.gif') no-repeat center center;
+}
+
+.icon-swf {
+    background: url('img/swf.gif') no-repeat center center;
+}
+
+.icon-xls {
+    background: url('img/xls.gif') no-repeat center center;
+}
+
+.icon-docx {
+    background: url('img/docx.png') no-repeat center center;
+}

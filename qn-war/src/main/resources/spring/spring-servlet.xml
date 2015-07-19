@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/mvc
+       http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+    <!-- 开启controller注解支持
+        注意：base-package 配置的路径需要具体到 controller 层，如果范围不能具体到 controller 层，请将 use-default-filters 设置成false，
+        否则之前加载的 Service和 Dao 层的 bean 会被替换掉，导致Service层的事务控制AOP将无法织入，导致AOP失效 use-default-filters="false"-->
+    <context:component-scan base-package="com.zlw,org.activiti.rest.editor, org.activiti.rest.diagram" >
+       <!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+    </context:component-scan>
+
+   <!-- <context:component-scan base-package="org.activiti.rest.editor,com.zlw"></context:component-scan>-->
+
+    <mvc:resources mapping="/asset-libs/**" location="/asset-libs/"/>
+    <mvc:resources mapping="/assets/**" location="/assets/"/>
+   <!-- <mvc:resources mapping="/*.html"/>-->
+   <!-- <mvc:resources mapping="/index.jsp" location="/"/>
+    <mvc:resources mapping="/login.jsp" location="/"/>
+    <mvc:resources mapping="/modeler.html" location=""/>-->
+    <!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
+    <!--<mvc:default-servlet-handler/>-->
+
+    <!-- 处理将页面请求的日期字符串转换为Date对象，格式为：YYYY-MM-dd HH:mm:ss -->
+    <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+        <property name="converters">
+            <set>
+                <bean class="com.zlw.ke.commons.date.DateConverter"/>
+            </set>
+        </property>
+    </bean>
+
+    <mvc:annotation-driven conversion-service="conversionService">
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.BufferedImageHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.ByteArrayHttpMessageConverter"/>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <constructor-arg value="UTF-8"/>
+                <property name="writeAcceptCharset" value="false"/>
+            </bean>
+            <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter ">
+                <!--解决IE9以前无法解析application/json问题-->
+                <property name="supportedMediaTypes">
+                    <list>
+                        <value>application/json;charset=UTF-8</value>
+                        <value>text/plain;charset=UTF-8</value>
+                    </list>
+                </property>
+                <property name="objectMapper">
+                    <!-- 自定义将后台的Date对象转换为界面可识别的日期字符串，格式：YYYY-MM-dd HH:mm:ss -->
+                    <bean class="com.zlw.ke.commons.json.CustomObjectMapper"/>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
+
+    <!-- 文件上传相关 -->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--one of the properties available;the maximum file size in bytes(50*1024*1024 = 10MB) -->
+        <property name="maxUploadSize" value="52428800"/>
+    </bean>
+
+    <!-- 视图解析器 -->
+    <bean name="viewResolvers" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="contentType" value="text/html;charset=UTF-8"></property>
+        <property name="prefix" value="/WEB-INF/views/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- 控制器异常处理 -->
+    <!--<bean id="exceptionResolver"
+          class="com.wksc.ex.exception.MySimpleMappingExceptionResolver">
+        <property name="exceptionMappings">
+            <props>
+                <prop key="java.lang.Exception">
+                    error
+                </prop>
+            </props>
+        </property>
+        <property name="statusCodes">
+            <props>
+                <prop key="error">500</prop>
+            </props>
+        </property>
+    </bean>-->
+
+    <!-- 拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**"/>
+            <bean class="com.zlw.ke.framework.interceptors.ContextPathInterceptor"/>
+        </mvc:interceptor>
+    </mvc:interceptors>
+</beans>
