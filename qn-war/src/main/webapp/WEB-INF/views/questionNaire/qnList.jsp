@@ -11,10 +11,11 @@
     <div class="page-header">
         <h1>
             问卷管理
-            <small class="pull-right">
+            <small class="">
                 <button class="btn btn-minier btn-info" type="button" id="add-btn">新增</button>
-                <button class="btn btn-minier btn-info" type="button" id="edit-btn">新增</button>
+                <button class="btn btn-minier btn-info" type="button" id="edit-btn">编辑</button>
                 <button class="btn btn-minier btn-info" type="button" id="delete-btn">删除</button>
+                <button class="btn btn-minier btn-info" type="button" id="edit-content-btn">文卷内容编辑</button>
                 <button class="btn btn-minier btn-info" type="button" id="deploy-btn">发布文卷</button>
                 <button class="btn btn-minier btn-info" type="button" id="cancel-btn">撤销</button>
                 <button class="btn btn-minier btn-info" type="button" id="preview-btn">预览</button>
@@ -61,11 +62,43 @@
 
 <script type="text/javascript">
     jQuery(function ($) {
-        $("#qnList").dataTable({
+        var  t=$("#qnList").dataTable({
             "sAjaxSource": getContentPath() + "/qn/pager.do",
+            "columnDefs": [ {
+                "searchable": false,
+                "orderable": false,
+                "targets": 0
+            } ],
+            "order": [[ 1, 'asc' ]],
             "aoColumns": [
+                /*{
+                    "sWidth": "5%",
+                    "bSortable": false,
+                    "sTitle": "序号",
+                    "sClass": "center"
+                },*/
+                {
+                    "sWidth": "5%",
+                    "bSortable": false,
+                    "mData": "id",
+                    "sTitle": "选择",
+                    "sClass": "center"
+                },
                 { "sWidth": "15%", "sTitle": "标题", "sClass": "center", "mData": "name", "bSortable": false },
-                { "sWidth": "12%", "sTitle": "状态", "sClass": "center", "mData": "status", "bSortable": false },
+                {
+                    "sWidth": "12%", "sTitle": "状态", "sClass": "center", "mData": "status", "bSortable": false,
+                    "mRender": function ( data, type, row ) {
+                        if(data==0){
+                            return "草稿"
+                        }else if(data==1){
+                            return "已发布"
+                        }else
+                        {
+                            return "";
+                        }
+
+                    }
+                },
                 { "sWidth": "15%", "sTitle": "更新时间", "sClass": "center", "mData": "updateTime", "bSortable": false },
                 { "sWidth": "12%", "sTitle": "发布人", "sClass": "center", "mData": "updateUser", "bSortable": false },
                 { "sWidth": "13%", "sTitle": "操作", "sClass": "center", "mData": "id", "bSortable": false  }
@@ -73,6 +106,7 @@
             "aaSorting": [],
             "aLengthMenu": [ 10, 20, 30 ],
             "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                $('td:eq(0)', nRow).html('<label><input type="radio" class="ace" name="id" value="' + aData["id"] + '" /><span style="width:0px;" class="lbl"></span></label>');
                 var operation = '<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">'
                         + '<a href="javascript:void(0)" onclick="updateVideo(this)" class="blue" title="edit"><i class="icon-edit bigger-130"></i></a>'
                         + '<a href="javascript:void(0)" onclick="deleteVideo(this)" class="red" title="delete"><i class="icon-remove bigger-130"></i></a>'
@@ -84,12 +118,55 @@
 
             }
         });
-
+        /*t.on( 'order.dt search.dt', function () {
+            t.column(0, {search:'applied', order:'applied'}).nodes().each( function (cell, i) {
+                cell.innerHTML = i+1;
+            } );
+        } ).draw();*/
 
         $("#add-btn").click(function () {
             switchPage("/qn/add.do")
         })
+
+
+        $("#edit-btn").click(function(){
+            var checkeded = $('#qnList').find("[name='id']:checked").val();
+            //var sData = $('#qnList').dataTable().fnGetData($(checkeded).parents("#qnList tr").get(0));
+            console.dir(checkeded);
+        })
+
+
+        $("#delete-btn").click(function(){
+            var id= $('#qnList').find("[name='id']:checked").val();
+            $.ajax({
+                url: "${ctx}/qn/delete.do",
+                type: 'post',
+                data: {
+                    id: id
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.code == 0) {
+                        $('#qnList').dataTable().fnClearTable();
+                    } else {
+                        bootBoxError("delete error!")
+                    }
+                }
+            });
+        })
+
+        $("#edit-content-btn").click(function(){
+            var id = $('#qnList').find("[name='id']:checked").val();
+            //var sData = $('#qnList').dataTable().fnGetData($(checkeded).parents("#qnList tr").get(0));
+//            console.dir(checkeded);
+            switchPage("/qn/editConntent.do",{
+                id:id
+            })
+        })
+
+
     })
+
+
 
    /* function updateVideo(dom) {
         var sData = $('#lvList').dataTable().fnGetData($(dom).parents("#lvList tr").get(0));

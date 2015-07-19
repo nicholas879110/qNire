@@ -3,6 +3,7 @@ package com.zlw.qn.mgr.controller;
 import com.zlw.qn.framework.message.BaseMessage;
 import com.zlw.qn.framework.page.Pager;
 import com.zlw.qn.framework.page.PagerQuery;
+import com.zlw.qn.mgr.domain.QnQuestionDomain;
 import com.zlw.qn.mgr.domain.QuestionNiareDomain;
 import com.zlw.qn.mgr.service.QuestionNiareService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -157,5 +158,40 @@ public class QuestionNiareController {
     }
 
 
+    @RequestMapping(value = "editConntent")
+    public ModelAndView editConntent(Integer id){
+        ModelAndView mav=new ModelAndView();
+        QuestionNiareDomain domain=questionNiareService.queryDomain(id);
+        mav.addObject("niare",domain);
+        mav.setViewName("/questionNaire/qnEditContent");
+        return mav;
+    }
+
+
+    @RequestMapping(value = "addQuestionInit")
+    public ModelAndView addQuestionInit(Integer id){
+        ModelAndView mav=new ModelAndView();
+//        QuestionNiareDomain domain=questionNiareService.queryDomain(id);
+        mav.addObject("niareId",id);
+        mav.setViewName("/questionNaire/qnAddQuestion");
+        return mav;
+    }
+
+
+
+
+    @RequestMapping(value = "saveQuestion")
+    @ResponseBody
+    public BaseMessage saveQuestion(Integer niareId,QnQuestionDomain questionDomain) {
+        BaseMessage msg=null;
+        try {
+            questionNiareService.saveQuestion(niareId,questionDomain);
+            msg=BaseMessage.successMsg("保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg=BaseMessage.errorMsg("新增失败");
+        }
+        return msg;
+    }
 
 }

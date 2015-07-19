@@ -2,6 +2,7 @@ package com.zlw.qn.mgr.service;
 
 import com.zlw.qn.framework.page.Pager;
 import com.zlw.qn.framework.page.PagerQuery;
+import com.zlw.qn.mgr.domain.QnQuestionDomain;
 import com.zlw.qn.mgr.domain.QuestionNiareDomain;
 
 /**
@@ -28,4 +29,9 @@ public interface QuestionNiareService {
     void delete(Integer id);
 
     void cancelDeploy(Integer id);
+
+    QuestionNiareDomain queryDomain(Integer id);
+
+    void saveQuestion(Integer naireId, QnQuestionDomain questionDomain);
+
 }
