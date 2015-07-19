@@ -13,6 +13,12 @@
             问卷管理
             <small class="pull-right">
                 <button class="btn btn-minier btn-info" type="button" id="add-btn">新增</button>
+                <button class="btn btn-minier btn-info" type="button" id="edit-btn">新增</button>
+                <button class="btn btn-minier btn-info" type="button" id="delete-btn">删除</button>
+                <button class="btn btn-minier btn-info" type="button" id="deploy-btn">发布文卷</button>
+                <button class="btn btn-minier btn-info" type="button" id="cancel-btn">撤销</button>
+                <button class="btn btn-minier btn-info" type="button" id="preview-btn">预览</button>
+                <button class="btn btn-minier btn-info" type="button" id="count-btn">查看统计结果</button>
             </small>
         </h1>
     </div>
@@ -80,99 +86,9 @@
         });
 
 
-       /* $("#mgr-file").ace_file_input({
-            no_file: 'Please Select File',
-            btn_choose: 'Select',
-            btn_change: 'ReSelect',
-            droppable: false,
-            onchange: null,
-            thumbnail: false,//| true | large
-            whitelist: 'mp4',
-            before_change: function (files, dropped) {
-                var file = files[0];
-                if (typeof file == "string") {//files is just a file name here (in browsers that don't support FileReader API)
-                    if (!(/\.(mp4)$/i).test(file)) {
-                        bootBoxWarning('Please Select mp4 Video!');
-                        return false;
-                    }
-                }
-                else {
-                    var type = $.trim(file.type);
-                    if (( type.length > 0 && !(/^mgr\/(mp4)$/i).test(type) )
-                            || ( type.length == 0 && !(/\.(mp4)$/i).test(file.name) )//for android's default browser!
-                            ) {
-                        alert('Please Select mp4 Video!');
-                        return false;
-                    }
-
-                    *//*if( file.size > 1100000 ) {//~100Kb
-                     alert('文件大小不能超过 1M!');
-                     return false;
-                     }*//*
-                }
-
-                return true;
-            }
-            //blacklist:'exe|php'
-            //onchange:''
-        });
-
-
-        $("#upload-btn").click(function () {
-            var dialog = $("#dialog-file-operation").removeClass('hide').dialog({
-                modal: true,
-                width: 470,
-                title: "<div class='widget-header widget-header-small'><h4 class='smaller'>Upload File</h4></div>",
-                title_html: true,
-                open: function (event, ui) {
-                    var $form = $('#uploadForm');
-                    var file_input = $form.find('input[type=file]');
-                    file_input.ace_file_input('reset_input');
-                    $form.get(0).reset();
-                },
-                close: function (event, ui) {
-                    var $form = $('#uploadForm');
-                    var file_input = $form.find('input[type=file]');
-                    file_input.ace_file_input('reset_input');
-                    $form.get(0).reset();
-                    dialog.dialog("destroy");
-                    $("#dialog-file-operation").addClass('hide')
-                },
-                buttons: [
-                    {
-                        text: "Cancel",
-                        "class": "btn btn-xs",
-                        click: function () {
-                            $(this).dialog("close");
-                        }
-                    },
-                    {
-                        text: "Save",
-                        "class": "btn btn-primary btn-xs",
-                        click: function () {
-                            var $form = $('#uploadForm');
-                            var fd = new FormData($form.get(0));
-                            $.ajax({
-                                url: "${ctx}/lv/upload.do",
-                                type: $form.attr('method'),
-                                processData: false,
-                                contentType: false,
-                                dataType: 'json',
-                                data: fd,
-                                success: function (data, textStatus, jqXHR) {
-                                    if (data.code == 0) {
-                                        $('#lvList').dataTable().fnClearTable();
-                                    } else {
-                                        bootBoxError(data.msg, "error！");
-                                    }
-                                }
-                            });
-                            dialog.dialog("close");
-                        }
-                    }
-                ]
-            });
-        })*/
+        $("#add-btn").click(function () {
+            switchPage("/qn/add.do")
+        })
     })
 
    /* function updateVideo(dom) {
