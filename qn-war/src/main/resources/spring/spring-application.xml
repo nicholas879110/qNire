@@ -15,7 +15,7 @@
     <!-- 引入jdbc属性配置文件 -->
     <context:property-placeholder location="classpath:jdbc.properties" ignore-unresolvable="true"></context:property-placeholder>
 
-    <bean id="config" class="com.zlw.ke.framework.utils.CustomizedPropertyConfig">
+    <bean id="config" class="com.zlw.qn.framework.utils.CustomizedPropertyConfig">
         <property name="locations" value="classpath:config.properties"/>
         <property name="ignoreUnresolvablePlaceholders" value="true" />
     </bean>
@@ -70,7 +70,7 @@
         <property name="dataSource" ref="dataSource"/>
         <property name="packagesToScan">
             <list>
-                <value>com.zlw.ke.model</value>
+                <value>com.zlw.qn.model</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -147,7 +147,7 @@
 
     <!-- json处理 -->
 
-   <!-- <bean id="objectMapper" class="com.zlw.ke.plugin.util.JsonMapper"></bean>
+   <!-- <bean id="objectMapper" class="com.zlw.qn.plugin.util.JsonMapper"></bean>
 -->
     <!-- Rest处理 -->
 

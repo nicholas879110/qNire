@@ -29,7 +29,7 @@
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
         <property name="converters">
             <set>
-                <bean class="com.zlw.ke.commons.date.DateConverter"/>
+                <bean class="com.zlw.qn.commons.date.DateConverter"/>
             </set>
         </property>
     </bean>
@@ -52,7 +52,7 @@
                 </property>
                 <property name="objectMapper">
                     <!-- 自定义将后台的Date对象转换为界面可识别的日期字符串，格式：YYYY-MM-dd HH:mm:ss -->
-                    <bean class="com.zlw.ke.commons.json.CustomObjectMapper"/>
+                    <bean class="com.zlw.qn.commons.json.CustomObjectMapper"/>
                 </property>
             </bean>
         </mvc:message-converters>
@@ -93,7 +93,7 @@
     <mvc:interceptors>
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
-            <bean class="com.zlw.ke.framework.interceptors.ContextPathInterceptor"/>
+            <bean class="com.zlw.qn.framework.interceptors.ContextPathInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 </beans>
