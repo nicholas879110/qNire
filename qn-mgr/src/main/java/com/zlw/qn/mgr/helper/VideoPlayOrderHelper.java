@@ -1,6 +1,6 @@
-package com.zlw.qn.video.helper;
+package com.zlw.qn.mgr.helper;
 
-import com.zlw.qn.video.domain.VideoDomain;
+import com.zlw.qn.mgr.domain.VideoDomain;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.*;

@@ -71,7 +71,7 @@
                 var operation = '<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">'
                         + '<a href="javascript:void(0)" onclick="updateVideo(this)" class="blue" title="edit"><i class="icon-edit bigger-130"></i></a>'
                         + '<a href="javascript:void(0)" onclick="deleteVideo(this)" class="red" title="delete"><i class="icon-remove bigger-130"></i></a>'
-                        + '<a href="javascript:void(0)" onclick="playVideo(this);" class="yellow" title="play"><i class=" icon-facetime-video bigger-130"></i></a>'
+                        + '<a href="javascript:void(0)" onclick="playVideo(this);" class="yellow" title="play"><i class=" icon-facetime-mgr bigger-130"></i></a>'
                         + "</div>";
                 $('td:eq(5)', nRow).html(operation);
             },
@@ -240,10 +240,10 @@
 
     function deleteVideo(dom) {
         var sData = $('#lvList').dataTable().fnGetData($(dom).parents("#lvList tr").get(0))
-        bootBoxConfirm("confirm delete this video?", function (result) {
+        bootBoxConfirm("confirm delete this mgr?", function (result) {
             if(result){
                 $.ajax({
-                    url: "${ctx}/video/delete.do",
+                    url: "${ctx}/mgr/delete.do",
                     type: 'post',
                     data: {
                         id: sData['id']

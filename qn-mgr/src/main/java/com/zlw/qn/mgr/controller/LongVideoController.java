@@ -1,11 +1,11 @@
-package com.zlw.qn.video.controller;
+package com.zlw.qn.mgr.controller;
 
 import com.zlw.qn.framework.message.BaseMessage;
 import com.zlw.qn.framework.page.Pager;
 import com.zlw.qn.framework.page.PagerQuery;
 import com.zlw.qn.user.service.UserService;
-import com.zlw.qn.video.domain.VideoDomain;
-import com.zlw.qn.video.service.VideoService;
+import com.zlw.qn.mgr.domain.VideoDomain;
+import com.zlw.qn.mgr.service.VideoService;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

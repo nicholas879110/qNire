@@ -1,51 +1,28 @@
 <%--
   Created by IntelliJ IDEA.
   User: zlw
-  Date: 14-11-17
-  Time: 下午10:36
+  Date: 14-11-20
+  Time: 下午11:11
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@include file="../commons/tag.jsp" %>
+
 <div class="row">
     <div class="page-header">
         <h1>
-            Video Managing
+            问卷管理
             <small class="pull-right">
-                <button class="btn btn-minier btn-info" type="button" id="upload-btn">Upload</button>
+                <button class="btn btn-minier btn-info" type="button" id="add-btn">新增</button>
             </small>
         </h1>
     </div>
-    <div class="col-xs-12">
 
-        <div class="row-fluid">
-            <ul class="ace-thumbnails">
-
-                <c:forEach items="${videos}" var="item">
-                    <li>
-                        <a href="javascript:void (0)"   onclick="playVideo('${item.url}')" >
-                            <img src="${item.firstFrame}" width="150" height="150"/>
-                        </a>
-
-                        <div class="tools">
-                            <a href="javascript:void(0)" onclick="updateVideo('${item.id}','${item.ch}','${item.en}')">
-                                <i class="icon-edit"></i>
-                            </a>
-                            <a href="javascript:void(0)" onclick="deleteVideo('${item.id}')">
-                                <i class="icon-remove red"></i>
-                            </a>
-                        </div>
-                    </li>
-                </c:forEach>
-            </ul>
-        </div>
-        <!-- PAGE CONTENT ENDS -->
+    <div class="col-xs-12 table-responsive">
+        <table id="qnList" class="table table-striped table-bordered table-hover"></table>
     </div>
-    <!-- /.col -->
 </div>
-<!-- /.row -->
 
-<div id="dialog-file-operation" class="hide">
+<%--<div id="dialog-file-operation" class="hide">
     <form id="uploadForm" method="post" enctype="multipart/form-data" class="form-horizontal">
         <input type="text" hidden="true" name="id"/>
 
@@ -69,75 +46,69 @@
             <label class="col-sm-3 control-label col-xs-12  no-padding">File:</label>
 
             <div class=" col-xs-12 col-sm-9">
-                <input class="input-small" id="video-file" type="file" name="file">
+                <input class="input-small" id="mgr-file" type="file" name="file">
             </div>
         </div>
 
     </form>
-</div>
-
+</div>--%>
 
 <script type="text/javascript">
     jQuery(function ($) {
-        var colorbox_params = {
-            reposition: true,
-            scalePhotos: true,
-            scrolling: false,
-            previous: '<i class="icon-arrow-left"></i>',
-            next: '<i class="icon-arrow-right"></i>',
-            close: '&times;',
-            current: '{current} of {total}',
-            maxWidth: '100%',
-            maxHeight: '100%',
-            onOpen: function () {
-                document.body.style.overflow = 'hidden';
+        $("#qnList").dataTable({
+            "sAjaxSource": getContentPath() + "/qn/pager.do",
+            "aoColumns": [
+                { "sWidth": "15%", "sTitle": "标题", "sClass": "center", "mData": "name", "bSortable": false },
+                { "sWidth": "12%", "sTitle": "状态", "sClass": "center", "mData": "status", "bSortable": false },
+                { "sWidth": "15%", "sTitle": "更新时间", "sClass": "center", "mData": "updateTime", "bSortable": false },
+                { "sWidth": "12%", "sTitle": "发布人", "sClass": "center", "mData": "updateUser", "bSortable": false },
+                { "sWidth": "13%", "sTitle": "操作", "sClass": "center", "mData": "id", "bSortable": false  }
+            ],
+            "aaSorting": [],
+            "aLengthMenu": [ 10, 20, 30 ],
+            "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                var operation = '<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">'
+                        + '<a href="javascript:void(0)" onclick="updateVideo(this)" class="blue" title="edit"><i class="icon-edit bigger-130"></i></a>'
+                        + '<a href="javascript:void(0)" onclick="deleteVideo(this)" class="red" title="delete"><i class="icon-remove bigger-130"></i></a>'
+                        + '<a href="javascript:void(0)" onclick="playVideo(this);" class="yellow" title="play"><i class=" icon-facetime-mgr bigger-130"></i></a>'
+                        + "</div>";
+                $('td:last', nRow).html(operation);
             },
-            onClosed: function () {
-                document.body.style.overflow = 'auto';
-            },
-            onComplete: function () {
-                $.colorbox.resize();
+            "fnServerParams": function (aoData) {
+
             }
-        };
+        });
 
-        $('.ace-thumbnails [data-rel="colorbox"]').colorbox(colorbox_params);
-        $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//let's add a custom loading icon
 
-        /**$(window).on('resize.colorbox', function() {
-		try {
-			//this function has been changed in recent versions of colorbox, so it won't work
-			$.fn.colorbox.load();//to redraw the current frame
-		} catch(e){}
-	});*/
-        $("#video-file").ace_file_input({
+       /* $("#mgr-file").ace_file_input({
             no_file: 'Please Select File',
             btn_choose: 'Select',
             btn_change: 'ReSelect',
             droppable: false,
             onchange: null,
             thumbnail: false,//| true | large
-            whitelist:'mp4',
-            before_change: function(files, dropped) {
+            whitelist: 'mp4',
+            before_change: function (files, dropped) {
                 var file = files[0];
-                if(typeof file == "string") {//files is just a file name here (in browsers that don't support FileReader API)
-                    if(! (/\.(mp4)$/i).test(file) ) {
+                if (typeof file == "string") {//files is just a file name here (in browsers that don't support FileReader API)
+                    if (!(/\.(mp4)$/i).test(file)) {
                         bootBoxWarning('Please Select mp4 Video!');
                         return false;
                     }
                 }
                 else {
                     var type = $.trim(file.type);
-                    if( ( type.length > 0 && ! (/^video\/(mp4)$/i).test(type) )
-                            || ( type.length == 0 && ! (/\.(mp4)$/i).test(file.name) )//for android's default browser!
+                    if (( type.length > 0 && !(/^mgr\/(mp4)$/i).test(type) )
+                            || ( type.length == 0 && !(/\.(mp4)$/i).test(file.name) )//for android's default browser!
                             ) {
-                        bootBoxWarning('Please Select mp4 Video!');
+                        alert('Please Select mp4 Video!');
                         return false;
                     }
 
-                    /*if( file.size > 1100000 ) {//~100Kb
-                        alert('文件大小不能超过 1M!');
-                        return false;
-                    }*/
+                    *//*if( file.size > 1100000 ) {//~100Kb
+                     alert('文件大小不能超过 1M!');
+                     return false;
+                     }*//*
                 }
 
                 return true;
@@ -175,24 +146,14 @@
                             $(this).dialog("close");
                         }
                     },
-                    /*{
-                        text:"Add Item",
-                        'class':"btn btn-xs",
-                        click:function(){
-                            var $form = $('#uploadForm');
-                            $form.find("input[type=text]:last").after("<input type='text'name='ch'>")
-                        }
-                    }  ,*/
                     {
                         text: "Save",
                         "class": "btn btn-primary btn-xs",
                         click: function () {
                             var $form = $('#uploadForm');
                             var fd = new FormData($form.get(0));
-                            fd.append("unitId", '${unitId}');
-                            startLoading("正在上传中......");
                             $.ajax({
-                                url: "${ctx}/mgr/upload.do",
+                                url: "${ctx}/lv/upload.do",
                                 type: $form.attr('method'),
                                 processData: false,
                                 contentType: false,
@@ -200,25 +161,22 @@
                                 data: fd,
                                 success: function (data, textStatus, jqXHR) {
                                     if (data.code == 0) {
-                                        switchPage("/mgr/init.do", {
-                                            unitId: '${unitId}'
-                                        })
+                                        $('#lvList').dataTable().fnClearTable();
                                     } else {
                                         bootBoxError(data.msg, "error！");
                                     }
-                                    endLoading();
                                 }
                             });
                             dialog.dialog("close");
-
                         }
                     }
                 ]
             });
-        })
+        })*/
     })
 
-    function updateVideo(id, ch, en) {
+   /* function updateVideo(dom) {
+        var sData = $('#lvList').dataTable().fnGetData($(dom).parents("#lvList tr").get(0));
         var dialog = $("#dialog-file-operation").removeClass('hide').dialog({
             modal: true,
             width: 470,
@@ -229,9 +187,9 @@
                 var file_input = $form.find('input[type=file]');
                 file_input.ace_file_input('reset_input');
                 $form.get(0).reset();
-                $form.find("input[name=id]").attr("value", id);
-                $form.find("input[name=ch]").attr("value", ch);
-                $form.find("input[name=en]").attr("value", en);
+                $form.find("input[name=id]").attr("value", sData['id']);
+                $form.find("input[name=ch]").attr("value", sData['ch']);
+                $form.find("input[name=en]").attr("value", sData['en']);
             },
             close: function (event, ui) {
                 var $form = $('#uploadForm');
@@ -255,8 +213,9 @@
                     click: function () {
                         var $form = $('#uploadForm');
                         var fd = new FormData($form.get(0));
+                        startLoading("正在上传中......");
                         $.ajax({
-                            url: "${ctx}/mgr/update.do",
+                            url: "${ctx}/lv/update.do",
                             type: $form.attr('method'),
                             processData: false,
                             contentType: false,
@@ -264,15 +223,14 @@
                             data: fd,
                             success: function (data, textStatus, jqXHR) {
                                 if (data.code == 0) {
-                                    switchPage("/mgr/init.do", {
-                                        unitId: '${unitId}'
-                                    })
+                                    $('#lvList').dataTable().fnClearTable();
                                 } else {
                                     bootBoxError(data.msg, "error！");
                                 }
+                                endLoading();
                             }
                         });
-                        dialog = $("#dialog-file-operation").addClass('hide')
+
                         dialog.dialog("close");
                     }
                 }
@@ -280,20 +238,19 @@
         });
     }
 
-    function deleteVideo(id) {
+    function deleteVideo(dom) {
+        var sData = $('#lvList').dataTable().fnGetData($(dom).parents("#lvList tr").get(0))
         bootBoxConfirm("confirm delete this mgr?", function (result) {
             if(result){
                 $.ajax({
                     url: "${ctx}/mgr/delete.do",
                     type: 'post',
                     data: {
-                        id: id
+                        id: sData['id']
                     },
                     success: function (data, textStatus, jqXHR) {
                         if (data.code == 0) {
-                            switchPage("/mgr/init.do", {
-                                unitId: '${unitId}'
-                            })
+                            $('#lvList').dataTable().fnClearTable();
                         } else {
                             bootBoxError("delete error!")
                         }
@@ -306,7 +263,8 @@
         })
     }
 
-function playVideo(url){
-    window.open(url)
-}
+    function playVideo(dom){
+        var sData = $('#lvList').dataTable().fnGetData($(dom).parents("#lvList tr").get(0))
+        window.open(getContentPath()+sData['url']);
+    }*/
 </script>

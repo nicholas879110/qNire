@@ -1,12 +1,12 @@
-package com.zlw.qn.video.service.impl;
+package com.zlw.qn.mgr.service.impl;
 
 import com.zlw.qn.framework.utils.CustomizedPropertyConfig;
 import com.zlw.qn.model.Unit;
 import com.zlw.qn.model.Video;
 import com.zlw.qn.security.util.UserUtil;
-import com.zlw.qn.video.dao.UnitDao;
-import com.zlw.qn.video.domain.UnitDomain;
-import com.zlw.qn.video.service.UnitService;
+import com.zlw.qn.mgr.dao.UnitDao;
+import com.zlw.qn.mgr.domain.UnitDomain;
+import com.zlw.qn.mgr.service.UnitService;
 import org.hibernate.Criteria;
 import org.hibernate.FetchMode;
 import org.hibernate.criterion.ProjectionList;

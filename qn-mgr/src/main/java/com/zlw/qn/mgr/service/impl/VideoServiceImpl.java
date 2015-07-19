@@ -1,4 +1,4 @@
-package com.zlw.qn.video.service.impl;
+package com.zlw.qn.mgr.service.impl;
 
 import com.zlw.qn.commons.ffmpeg.FfmpegUtil;
 import com.zlw.qn.framework.page.Pager;
@@ -8,10 +8,10 @@ import com.zlw.qn.model.SysUser;
 import com.zlw.qn.model.Unit;
 import com.zlw.qn.model.Video;
 import com.zlw.qn.security.util.UserUtil;
-import com.zlw.qn.video.dao.VideoDao;
-import com.zlw.qn.video.domain.VideoDomain;
-import com.zlw.qn.video.service.UnitService;
-import com.zlw.qn.video.service.VideoService;
+import com.zlw.qn.mgr.dao.VideoDao;
+import com.zlw.qn.mgr.domain.VideoDomain;
+import com.zlw.qn.mgr.service.UnitService;
+import com.zlw.qn.mgr.service.VideoService;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang.StringUtils;
 import org.hibernate.Criteria;
@@ -195,12 +195,12 @@ public class VideoServiceImpl implements VideoService {
     public void deleteVideo(String videoId) {
         Video video = videoDao.get(Video.class, videoId);
         if (video != null) {
-           /* File videoFile=new File(context.getRealPath("/")+video.getUrl());
+           /* File videoFile=new File(context.getRealPath("/")+mgr.getUrl());
             if(videoFile.exists()){
                 videoFile.delete();
             }
 
-            File head=new File(context.getRealPath("/")+video.getFirstFrame());
+            File head=new File(context.getRealPath("/")+mgr.getFirstFrame());
 
             if(head.exists()){
                 head.delete();

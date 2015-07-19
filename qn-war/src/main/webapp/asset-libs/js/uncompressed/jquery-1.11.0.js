@@ -5259,7 +5259,7 @@ function createSafeFragment( document ) {
 }
 
 var nodeNames = "abbr|article|aside|audio|bdi|canvas|data|datalist|details|figcaption|figure|footer|" +
-		"header|hgroup|mark|meter|nav|output|progress|section|summary|time|video",
+		"header|hgroup|mark|meter|nav|output|progress|section|summary|time|mgr",
 	rinlinejQuery = / jQuery\d+="(?:null|\d+)"/g,
 	rnoshimcache = new RegExp("<(?:" + nodeNames + ")[\\s/>]", "i"),
 	rleadingWhitespace = /^\s+/,

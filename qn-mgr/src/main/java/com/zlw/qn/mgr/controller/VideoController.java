@@ -1,11 +1,11 @@
-package com.zlw.qn.video.controller;
+package com.zlw.qn.mgr.controller;
 
 import com.zlw.qn.framework.message.BaseMessage;
 import com.zlw.qn.model.Video;
 import com.zlw.qn.user.service.UserService;
-import com.zlw.qn.video.domain.VideoDomain;
-import com.zlw.qn.video.helper.VideoPlayOrderHelper;
-import com.zlw.qn.video.service.VideoService;
+import com.zlw.qn.mgr.domain.VideoDomain;
+import com.zlw.qn.mgr.helper.VideoPlayOrderHelper;
+import com.zlw.qn.mgr.service.VideoService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -52,7 +52,7 @@ public class VideoController {
         List<VideoDomain> videos = videoService.list(null, unitId, SHORT);
         mav.addObject("videos", videos);
         mav.addObject("unitId", unitId);
-        mav.setViewName("/video/video");
+        mav.setViewName("/mgr/mgr");
         return mav;
     }
 

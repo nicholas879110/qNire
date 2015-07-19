@@ -1,7 +1,7 @@
-package com.zlw.qn.video.service;
+package com.zlw.qn.mgr.service;
 
 import com.zlw.qn.model.Unit;
-import com.zlw.qn.video.domain.UnitDomain;
+import com.zlw.qn.mgr.domain.UnitDomain;
 
 import java.util.List;
 

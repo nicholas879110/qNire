@@ -3,7 +3,7 @@
 <div class="sidebar <%--sidebar-fixed--%>" id="sidebar">
     <div class="sidebar-shortcuts" id="sidebar-shortcuts">
         <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
-            Menu
+            控制台
         </div>
         <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
             <span class="btn"></span>
@@ -12,9 +12,9 @@
     <ul class="nav nav-list">
         <%--<sec:authorize ifAnyGranted="USER_VIDEO_MGR">--%>
             <li>
-                <a href="#"  view="/unit/init.do">
+                <a href="#"  view="/qn/init.do">
                     <i class="icon-edit"></i>
-                    <span class="menu-text"> Video Upload </span>
+                    <span class="menu-text">问卷管理</span>
                 </a>
             </li>
         <%--</sec:authorize>
@@ -22,7 +22,7 @@
             <li>
                 <a href="#"  view="/lv/init.do">
                     <i class="icon-edit"></i>
-                    <span class="menu-text"> Long Video </span>
+                    <span class="menu-text">题库管理</span>
                 </a>
             </li>
        <%-- </sec:authorize>
@@ -30,7 +30,7 @@
             <li>
                 <a href="#" view="/tea/init.do">
                     <i class="icon-edit"></i>
-                    <span class="menu-text"> Teacher </span>
+                    <span class="menu-text">标签管理 </span>
                 </a>
             </li>
         <%--</sec:authorize>--%>

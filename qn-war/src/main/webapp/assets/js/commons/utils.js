@@ -34,7 +34,7 @@ function getResourceIcon(d) {
             icon = "mp4.gif";
 //            break;
         case 8 :
-//            icon = "fa-file-video-o";
+//            icon = "fa-file-mgr-o";
             icon = "flv.gif";
             break;
         case 9 :

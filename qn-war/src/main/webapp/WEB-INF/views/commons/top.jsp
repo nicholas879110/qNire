@@ -59,7 +59,7 @@
         <h1 class="navbar-logo">
             <a href="#" class="">
                 <i class="icon-leaf"></i>
-                Child English Manage System
+                问卷调查管理系统
             </a><!-- /.brand -->
         </h1><!-- /.navbar-header -->
     </div>

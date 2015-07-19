@@ -49,7 +49,7 @@ $(function () {
 //        console.log(fileUrl);
         var flashvarsVideo = {
             source: fileUrl, // 播放的视频文件地址
-            type: type, // 文件格式，支持两种格式：audio, video
+            type: type, // 文件格式，支持两种格式：audio, mgr
             streamtype: "file", // 文件流类型：file, http, rmtp, youtube
             server: "", // streamtype为rmtp时使用，协调rmtp文件流的服务器地址
             duration: "52",

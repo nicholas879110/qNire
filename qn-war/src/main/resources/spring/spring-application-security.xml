@@ -20,7 +20,7 @@
     <http pattern="/VIDEO_FILE/**" security="none"/>
     <http pattern="/*.html" security="none"/>
     <http auto-config="true">
-        <!--<intercept-url pattern="/video/upload.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />-->
+        <!--<intercept-url pattern="/mgr/upload.do" access="IS_AUTHENTICATED_ANONYMOUSLY" />-->
         <intercept-url pattern="/**"   access="ROLE_USER" />
         <form-login login-page="/login.jsp" default-target-url="/index.jsp"
                     always-use-default-target="true"  authentication-failure-url="/login.jsp?error=true"/>

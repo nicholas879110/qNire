@@ -272,7 +272,7 @@ function _getIcon(d) {
             icon = "mp4.gif";
             break;
         case Constant.Resource.FILE_REAL_TYPE.FLV:
-//            icon = "fa-file-video-o";
+//            icon = "fa-file-mgr-o";
             icon = "flv.gif";
             break;
         case Constant.Resource.FILE_REAL_TYPE.PDF :

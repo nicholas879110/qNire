@@ -1,4 +1,4 @@
-package com.zlw.qn.video.dao;
+package com.zlw.qn.mgr.dao;
 
 import com.zlw.qn.framework.dao.BaseDao;
 import org.springframework.stereotype.Repository;

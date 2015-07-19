@@ -2,9 +2,9 @@
 <configuration scan="true" scanPeriod="60 seconds" debug="true">
     <property name="baseDir" value="./logs"/>
     <!-- 设置日志输出信息输出格式,如: "14:46:11.981 [main] INFO  [custom.java.template.App:11] - Hello World!" -->
-    <property name="log_format" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger{120}:%line] - %msg%n"/>
+    <property name="log_format" value="[QN]:%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level [%logger{120}:%line] - %msg%n"/>
     <!-- 日志名称 -->
-    <property name="log_name" value="kindgarden-En"/>
+    <property name="log_name" value="xjszy"/>
     <!-- 配置logback控制台日志输出 -->
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder charset="UTF-8">
@@ -17,7 +17,7 @@
         <Encoding>UTF-8</Encoding>
         <!-- 滚动策略 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>${baseDir}/log-%d{yyyy-MM-dd}-%i.log.zip
+            <fileNamePattern>${CATALINA_BASE}/logs/log-%d{yyyy-MM-dd}-%i.log.zip
             </fileNamePattern>
             <maxHistory>30</maxHistory>
             <TimeBasedFileNamingAndTriggeringPolicy
@@ -33,7 +33,7 @@
 
     <!-- 控制日志输出级别 -->
     <root>
-        <level value="ERROR"/>
+        <level value="DEBUG"/>
         <appender-ref ref="stdout"/>
         <appender-ref ref="rollingFile"/>
         <!--<appender-ref ref="FILE"/>-->
@@ -43,7 +43,7 @@
     <logger name="org.springframework" level="ERROR"/>
     <logger name="org.springframework.security" level="ERROR"/>
     <logger name="org.apache" level="ERROR"/>
-    <logger name="com.wksc">
+    <logger name="com.zlw">
         <level value="DEBUG"/>
         <appender-ref ref="rollingFile"/>
     </logger>

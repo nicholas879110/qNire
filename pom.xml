@@ -26,105 +26,33 @@
         <!-- encoding -->
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <encoding>UTF-8</encoding>
-        <!-- mysql -->
+        <!-- 文件拷贝时的编码 -->
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- 编译时的编码 -->
+        <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
+        <!-- 数据库 -->
         <mysql.version>5.1.25</mysql.version>
-        <!-- com.zlw.qn.commons -->
+        <junit.version>4.9</junit.version>
+        <servlet.version>2.4</servlet.version>
+        <spring.version>3.2.8.RELEASE</spring.version>
+        <hibernate.version>4.2.3.Final</hibernate.version>
+        <spring.security>3.2.2.RELEASE</spring.security>
+        <logback.version>1.0.13</logback.version>
+        <jsp.version>2.0</jsp.version>
+        <el.version>6.0.35</el.version>
+        <jstl.version>1.2</jstl.version>
+        <jackson.version>2.4.1</jackson.version>
+        <org.slf4j.version>1.7.5</org.slf4j.version>
         <commons.io.version>2.4</commons.io.version>
         <commons.fileupload.version>1.3</commons.fileupload.version>
         <commons.lang.version>2.5</commons.lang.version>
         <commons.collections.version>3.2.1</commons.collections.version>
         <commons.codec.version>1.4</commons.codec.version>
         <commons.beanutils.version>1.8.3</commons.beanutils.version>
-        <!--junit-->
-        <junit.version>4.11</junit.version>
-        <!--servlet-->
-        <servlet.version>3.1.0</servlet.version>
-        <jsp.version>2.0</jsp.version>
-        <el.version>6.0.35</el.version>
-        <jstl.version>1.2</jstl.version>
-        <!--logback-->
-        <logback.version>1.0.13</logback.version>
-        <!--com.zlw.qn.commons-logging-->
-        <commons.logging.version>1.1.3</commons.logging.version>
-        <!--poi-->
-        <poi.version>3.10-FINAL</poi.version>
-        <!--jackson-->
-        <json.lib.version>2.4</json.lib.version>
-        <jackson.version>2.3.3</jackson.version>
-        <!--xstream-->
-        <xstream.version>1.4.4</xstream.version>
-        <!--jdk-->
-        <JDK.version>1.7</JDK.version>
-        <!--hibernate-->
-        <hibernate.version>4.3.6.Final</hibernate.version>
-        <!--ehcache-->
-        <ehcache.version>2.6.6</ehcache.version>
-        <!-- spring -->
-        <spring.version>4.0.7.RELEASE</spring.version>
-        <spring.security.version>3.2.5.RELEASE</spring.security.version>
-        <!--cglib-->
-        <cglib.version>2.2.2</cglib.version>
-        <!--javassist-->
-        <javassist.version>3.12.1.GA</javassist.version>
-        <!--urlrewriter-->
-        <urlrewriterfilter.version>4.0.3</urlrewriterfilter.version>
-        <!--javax.mail-->
-        <javax.mail.version>1.4.3</javax.mail.version>
-        <org.slf4j.version>1.7.5</org.slf4j.version>
-        <activiti.version>5.17.0</activiti.version>
+
     </properties>
-
-
-    <profiles>
-        <profile>
-            <id>compile-widgetset</id>
-            <build>
-                <plugins>
-                    <!-- Compile custom GWT components or widget dependencies with
-                      the GWT compiler -->
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>gwt-maven-plugin</artifactId>
-                        <version>2.3.0</version>
-                        <configuration>
-                            <webappDirectory>src/main/webapp/VAADIN/widgetsets</webappDirectory>
-                            <extraJvmArgs>-Xmx512M -Xss1024k</extraJvmArgs>
-                            <runTarget>clean</runTarget>
-                            <soyc>false</soyc>
-                        </configuration>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>resources</goal>
-                                    <goal>compile</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                    <plugin>
-                        <groupId>com.vaadin</groupId>
-                        <artifactId>vaadin-maven-plugin</artifactId>
-                        <version>1.0.2</version>
-                        <executions>
-                            <execution>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>update-widgetset</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
-
     <dependencies>
-        <dependency>
-            <groupId>org.apache.ant</groupId>
-            <artifactId>ant</artifactId>
-            <version>1.9.2</version>
-        </dependency>
 
         <!-- junit -->
         <dependency>
@@ -133,54 +61,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-        <!-- logback -->
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-core</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback.version}</version>
-        </dependency>
-        <!-- jackson -->
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-core</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-annotations</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>${jackson.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>net.sf.json-lib</groupId>
-            <artifactId>json-lib</artifactId>
-            <version>${json.lib.version}</version>
-            <classifier>jdk13</classifier>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-core-asl</artifactId>
-            <version>1.9.13</version>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.jackson</groupId>
-            <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
-        </dependency>
         <!-- hibernate -->
         <dependency>
             <groupId>javassist</groupId>
             <artifactId>javassist</artifactId>
-            <version>${javassist.version}</version>
+            <version>3.12.1.GA</version>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -268,39 +153,144 @@
             <artifactId>spring-jdbc</artifactId>
             <version>${spring.version}</version>
         </dependency>
-        <!-- spring.security -->
+
+
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>${spring.security.version}</version>
+            <version>${spring.security}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>${spring.security.version}</version>
+            <version>${spring.security}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>${spring.security.version}</version>
+            <version>${spring.security}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-acl</artifactId>
-            <version>${spring.security.version}</version>
+            <version>${spring.security}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-            <version>${spring.security.version}</version>
+            <version>${spring.security}</version>
         </dependency>
-        <!-- ehcache -->
+
+        <!-- servlet -->
         <dependency>
-            <groupId>net.sf.ehcache</groupId>
-            <artifactId>ehcache-core</artifactId>
-            <version>${ehcache.version}</version>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+            <version>${servlet.version}</version>
         </dependency>
-        <!-- common -->
+        <!-- Cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+
+
+
+        <!--Servlet -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>taglibs</groupId>
+            <artifactId>standard</artifactId>
+            <version>1.1.2</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>jsp-api</artifactId>
+            <scope>provided</scope>
+            <version>${jsp.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>el-api</artifactId>
+            <scope>provided</scope>
+            <version>${el.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>servlet-api</artifactId>
+            <scope>provided</scope>
+            <version>${servlet.version}</version>
+        </dependency>
+
+        <!-- Mysql -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-core</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>${logback.version}</version>
+        </dependency>
+
+        <!--使用logback记录日志后，相关框架（Spring、Hibernate等）的日志不能根据日志等级打印出来，使用
+        下面相关的依赖包进行桥接转换-->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <!-- jcl桥接，用来输出第三方Jakarta Commons Logging (JCL) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jcl-over-slf4j</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <!--jul桥接 用来输出Java Logging Framework (JUL) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>jul-to-slf4j</artifactId>
+            <version>${org.slf4j.version}</version>
+        </dependency>
+        <!--END-->
+
+        <!-- Logback End -->
+
+        <!-- Json -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.datatype</groupId>
+            <artifactId>jackson-datatype-hibernate4</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <!-- 文件上传 -->
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
@@ -311,6 +301,7 @@
             <artifactId>commons-fileupload</artifactId>
             <version>${commons.fileupload.version}</version>
         </dependency>
+
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -331,162 +322,12 @@
             <artifactId>commons-beanutils</artifactId>
             <version>${commons.beanutils.version}</version>
         </dependency>
-        <!-- servlet -->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>${jstl.version}</version>
-        </dependency>
-        <!--<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <scope>provided</scope>
-            <version>${servlet.version}</version>
-        </dependency>-->
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-            <version>3.1.0</version>
-        </dependency>
-
-        <!--<dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>-->
-       <!-- <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-            <version>2.0</version>
-        </dependency>-->
-
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-            <version>${jsp.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>el-api</artifactId>
-            <scope>provided</scope>
-            <version>${el.version}</version>
-        </dependency>
-        <!-- Cglib -->
-        <dependency>
-            <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>${cglib.version}</version>
-        </dependency>
-        <!-- xstream -->
-        <dependency>
-            <groupId>com.thoughtworks.xstream</groupId>
-            <artifactId>xstream</artifactId>
-            <version>${xstream.version}</version>
-        </dependency>
-        <!-- Mysql -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>${mysql.version}</version>
-        </dependency>
-        <!--log-->
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>${commons.logging.version}</version>
-        </dependency>
-
-
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${org.slf4j.version}</version>
-        </dependency>
-        <!-- jcl桥接，用来输出第三方Jakarta Commons Logging (JCL) -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jcl-over-slf4j</artifactId>
-            <version>${org.slf4j.version}</version>
-        </dependency>
-        <!--jul桥接 用来输出Java Logging Framework (JUL) -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>jul-to-slf4j</artifactId>
-            <version>${org.slf4j.version}</version>
-        </dependency>
-        <!--END-->
-
-
-        <!--<dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-explorer</artifactId>
-            <version>${activiti.version}</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-modeler</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>xalan</groupId>
-                    <artifactId>xalan</artifactId>
-                </exclusion>
-            </exclusions>
-            <version>${activiti.version}</version>
-        </dependency>-->
-        <!--<dependency>
-            <groupId>org.activiti</groupId>
-            <artifactId>activiti-diagram-rest</artifactId>
-            <version>${activiti.version}</version>
-        </dependency>-->
-
-
-        <!-- <dependency>
-             <groupId>javax.servlet</groupId>
-             <artifactId>javax.servlet-api</artifactId>
-             <version>3.1.0</version>
-             <scope>provided</scope>
-         </dependency>-->
-
-        <!-- Database -->
-
-
-        <!-- Running example processes -->
-        <!--<dependency>
-            <groupId>org.codehaus.groovy</groupId>
-            <artifactId>groovy-all</artifactId>
-        </dependency>-->
-
-        <!-- Testing -->
-        <!--<dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>-->
-
-
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>jstl</artifactId>
-            <version>1.2</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <scope>provided</scope>
-            <version>2.0</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <scope>provided</scope>
-            <version>3.1.0</version>
-        </dependency>
-
 
     </dependencies>
+
+
+
+
 
     <repositories>
         <repository>
@@ -564,8 +405,8 @@
                 <version>3.1</version>
                 <configuration>
                     <encoding>${encoding}</encoding>
-                    <source>${JDK.version}</source>
-                    <target>${JDK.version}</target>
+                    <source>1.7</source>
+                    <target>1.7</target>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <debug>true</debug>
@@ -607,7 +448,7 @@
                     <server>tomcat7</server>
                     <username>tomcat</username>
                     <password>tomcat</password>
-                    <path>/ke</path>
+                    <path>/qn</path>
                 </configuration>
             </plugin>
         </plugins>

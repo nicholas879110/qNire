@@ -1,9 +1,9 @@
-package com.zlw.qn.video.controller;
+package com.zlw.qn.mgr.controller;
 
 import com.zlw.qn.framework.message.BaseMessage;
 import com.zlw.qn.security.util.UserUtil;
-import com.zlw.qn.video.domain.UnitDomain;
-import com.zlw.qn.video.service.UnitService;
+import com.zlw.qn.mgr.domain.UnitDomain;
+import com.zlw.qn.mgr.service.UnitService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +20,7 @@ import java.util.List;
  * Title: qn<br>
  * Description: <br>
  * Copyright: 中国软件与技术服务股份有限公司 (c) 2014	<br>
- * File name: com.zlw.qn.video.controller.UnitController <br>
+ * File name: com.zlw.qn.mgr.controller.UnitController <br>
  * Create DateTime: 14-11-15 下午3:23 <br>
  * Version: 1.0 <br>
  * Author: zlw

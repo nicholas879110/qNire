@@ -26,8 +26,8 @@ $(function () {
     loadResource(certId,kpId);
 
 
-    $("ul.video li a").bind("click",function(){
-        $("ul.video li.active").removeClass("active");
+    $("ul.mgr li a").bind("click",function(){
+        $("ul.mgr li.active").removeClass("active");
         $(this).parent().addClass("active");
         var kpId=$(this).attr("value");
         loadResource(certId,kpId);
@@ -245,7 +245,7 @@ function relateResourceDom(res){
     //判断资源类型
     var logo = ""; //getContentPath() + "/JarisFLVPlayer-v2.0.15b/img/logo-color.png";
     var logoUrl = "";
-    var poster = getContentPath() + "/file/img/" /*+ (isVideo ? "video.png" : "audio.png");*/
+    var poster = getContentPath() + "/file/img/" /*+ (isVideo ? "mgr.png" : "audio.png");*/
     var type ="";
 //    console.dir(res);
 

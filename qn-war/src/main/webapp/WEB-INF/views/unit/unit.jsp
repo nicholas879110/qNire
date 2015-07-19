@@ -160,7 +160,7 @@
     })
 
     function switchToResource(id, name) {
-        switchPage("/video/init.do", {unitId: id})
+        switchPage("/mgr/init.do", {unitId: id})
     }
 
     function updateUnit(id, name) {

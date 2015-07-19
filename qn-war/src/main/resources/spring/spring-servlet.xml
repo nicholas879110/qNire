@@ -10,8 +10,12 @@
     <!-- 开启controller注解支持
         注意：base-package 配置的路径需要具体到 controller 层，如果范围不能具体到 controller 层，请将 use-default-filters 设置成false，
         否则之前加载的 Service和 Dao 层的 bean 会被替换掉，导致Service层的事务控制AOP将无法织入，导致AOP失效 use-default-filters="false"-->
-    <context:component-scan base-package="com.zlw,org.activiti.rest.editor, org.activiti.rest.diagram" >
-       <!-- <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+   <!-- <context:component-scan base-package="com.zlw" >
+        &lt;!&ndash;<context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>&ndash;&gt;
+    </context:component-scan>-->
+
+    <context:component-scan base-package="com.zlw.qn.*.controller" use-default-filters="false">
+        <context:include-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
    <!-- <context:component-scan base-package="org.activiti.rest.editor,com.zlw"></context:component-scan>-->
@@ -23,7 +27,7 @@
     <mvc:resources mapping="/login.jsp" location="/"/>
     <mvc:resources mapping="/modeler.html" location=""/>-->
     <!-- 当在web.xml 中 DispatcherServlet使用 <url-pattern>/</url-pattern> 映射时，能映射静态资源 -->
-    <!--<mvc:default-servlet-handler/>-->
+    <mvc:default-servlet-handler/>
 
     <!-- 处理将页面请求的日期字符串转换为Date对象，格式为：YYYY-MM-dd HH:mm:ss -->
     <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">

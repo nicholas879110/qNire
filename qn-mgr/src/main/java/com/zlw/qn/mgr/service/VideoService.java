@@ -1,9 +1,9 @@
-package com.zlw.qn.video.service;
+package com.zlw.qn.mgr.service;
 
 import com.zlw.qn.framework.page.Pager;
 import com.zlw.qn.framework.page.PagerQuery;
 import com.zlw.qn.model.Video;
-import com.zlw.qn.video.domain.VideoDomain;
+import com.zlw.qn.mgr.domain.VideoDomain;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

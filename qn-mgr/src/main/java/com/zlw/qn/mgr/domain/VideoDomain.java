@@ -1,4 +1,4 @@
-package com.zlw.qn.video.domain;
+package com.zlw.qn.mgr.domain;
 
 import com.zlw.qn.model.Unit;
 

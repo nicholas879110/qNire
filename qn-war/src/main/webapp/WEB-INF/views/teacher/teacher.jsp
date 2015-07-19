@@ -208,7 +208,7 @@ function updateTea(dom) {
 
 function deleteTea(dom) {
     var sData = $('#teaList').dataTable().fnGetData($(dom).parents("#teaList tr").get(0))
-    bootBoxConfirm("confirm delete this video?", function (result) {
+    bootBoxConfirm("confirm delete this mgr?", function (result) {
         if(result){
 
             $.ajax({

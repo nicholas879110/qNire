@@ -39,7 +39,7 @@
 .topNav .ace-nav a {background:none; color:#999;}
 .topNav .ace-nav a:hover {background:none;color:#666;}
 .ace-nav>li>a>[class*="icon-"] {color:#999;}
-.train-banner {height:120px;background:#011432 url(../images/bg.png) no-repeat center top;}
+.train-banner {background:#011432 url(../images/bg.png) no-repeat center top;}
 .navbar-logo {margin-top:40px;}
 .navbar-logo a { color:#fff; font-family:"宋体";font-weight: bold;}
 .navbar-logo a:hover {text-decoration: none;}

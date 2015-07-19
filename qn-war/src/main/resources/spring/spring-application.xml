@@ -9,7 +9,7 @@
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
     <!-- 扫描注解Bean -->
     <context:component-scan base-package="com.zlw">
-        <!--<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>-->
+        <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
 
     <!-- 引入jdbc属性配置文件 -->
@@ -134,13 +134,13 @@
             <tx:method name="get*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="count*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="find*" propagation="REQUIRED" read-only="true"/>
-            <tx:method name="page*" propagation="REQUIRED" read-only="true"/>
+            <tx:method name="pager*" propagation="REQUIRED" read-only="true"/>
             <tx:method name="*" propagation="REQUIRED" read-only="true"/>
         </tx:attributes>
     </tx:advice>
     <aop:config expose-proxy="true">
         <!-- 只对业务逻辑层实施事务,并处理基类里面的service -->
-        <aop:pointcut id="txPointcut" expression="execution(* com.zlw..service.*.*(..))"/>
+        <aop:pointcut id="txPointcut" expression="execution(* com.zlw..*.service.*.*(..))"/>
         <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
     </aop:config>
 
@@ -151,33 +151,33 @@
 -->
     <!-- Rest处理 -->
 
-    <bean id="restResponseFactory" class="org.activiti.rest.service.api.RestResponseFactory"></bean>
+    <!--<bean id="restResponseFactory" class="org.activiti.rest.service.api.RestResponseFactory"></bean>
 
     <bean id="contentTypeResolver" class="org.activiti.rest.common.application.DefaultContentTypeResolver"></bean>
 
-    <!-- Activiti的bean -->
-    <!-- 流程引擎的配置bean -->
+    &lt;!&ndash; Activiti的bean &ndash;&gt;
+    &lt;!&ndash; 流程引擎的配置bean &ndash;&gt;
     <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
         <property name="dataSource" ref="dataSource"/>
         <property name="databaseSchemaUpdate" value="true"/>
         <property name="transactionManager" ref="transactionManager"/>
-        <!-- 生成流程图的字体 -->
+        &lt;!&ndash; 生成流程图的字体 &ndash;&gt;
         <property name="activityFontName" value="宋体"/>
         <property name="labelFontName" value="宋体"/>
-        <!--<property name="deploymentResources" value="com/css/xjszy/workFlow/bpmn/autodeploy.*.bpmn20.xml" />-->
-        <!-- 邮件服务器配置 -->
+        &lt;!&ndash;<property name="deploymentResources" value="com/css/xjszy/workFlow/bpmn/autodeploy.*.bpmn20.xml" />&ndash;&gt;
+        &lt;!&ndash; 邮件服务器配置 &ndash;&gt;
         <property name="mailServerHost" value="smtp.sina.com.cn"></property>
         <property name="mailServerPort" value="25"></property>
         <property name="mailServerUsername" value="nzyworkmail@sina.cn"></property>
         <property name="mailServerPassword" value="1991822"></property>
-        <!-- 开启job -->
+        &lt;!&ndash; 开启job &ndash;&gt;
         <property name="jobExecutorActivate" value="true"/>
     </bean>
-    <!-- 流程引擎的bean -->
+    &lt;!&ndash; 流程引擎的bean &ndash;&gt;
     <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean">
         <property name="processEngineConfiguration" ref="processEngineConfiguration"/>
     </bean>
-    <!-- 服务组件的bean -->
+    &lt;!&ndash; 服务组件的bean &ndash;&gt;
     <bean id="repositoryService" factory-bean="processEngine"
           factory-method="getRepositoryService"/>
     <bean id="runtimeService" factory-bean="processEngine"
@@ -189,7 +189,7 @@
     <bean id="identityService" factory-bean="processEngine"
           factory-method="getIdentityService"/>
     <bean id="managementService" factory-bean="processEngine"
-          factory-method="getManagementService"/>
+          factory-method="getManagementService"/>-->
 
     <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"></bean>
 </beans>
