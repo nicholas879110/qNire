@@ -24,15 +24,29 @@
                 <div class='flrct'> <a href='./wjNew.jsp' target='main'><img src='skin/images/frame/gtk-sadd.png' alt='创建问卷' title='创建问卷'/></a> </div>
               </div>
             </li>
-            <%--
-            <li><a href='archives.html' target='main'>所有列表</a> </li>
+            <%----%>
+            <li><a href='archives.html' target='main'>题库管理</a> </li>
             <li>
               <div class='items'>
-                <div class='fllct'><a href='archives.html' target='main'>内容回收站</a></div>
+                <div class='fllct'><a href='archives.html' target='main'>标签管理</a></div>
                 <div class='flrct'> <a href='archives.html' target='main'><img src='skin/images/frame/gtk-del.png' alt='清空回收站' title='清空回收站'/></a> </div>
               </div>
             </li>
-             --%>
+            
+             <li>
+              <div class='items'>
+                <div class='fllct'><a href='archives.html' target='main'>题型管理</a></div>
+                <div class='flrct'> <a href='archives.html' target='main'><img src='skin/images/frame/gtk-del.png' alt='清空回收站' title='清空回收站'/></a> </div>
+              </div>
+            </li>
+            
+             <li>
+              <div class='items'>
+                <div class='fllct'><a href='archives.html' target='main'>提示管理</a></div>
+                <div class='flrct'> <a href='archives.html' target='main'><img src='skin/images/frame/gtk-del.png' alt='清空回收站' title='清空回收站'/></a> </div>
+              </div>
+            </li>
+             
           </ul>
         </dd>
       </dl>
