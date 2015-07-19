@@ -86,6 +86,10 @@
                 <!--加上这个报错：org.hibernate.HibernateException: createCriteria is not valid without active transaction-->
                 <!--<prop key="hibernate.current_session_context_class">${hibernate.current.session.context.class}</prop>-->
                 <prop key="hibernate.hbm2ddl.auto">${hibernate.hbm2dd2.auto}</prop>
+                <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/vote</prop>
+                <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
+                <prop key="hibernate.connection.username">root</prop>
+                <prop key="hibernate.connection.password"></prop>
                 <!--<prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>-->
                 <!--<prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>-->
                 <!--<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>-->
