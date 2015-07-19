@@ -1,5 +1,7 @@
 package com.zlw.qn.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -21,6 +23,8 @@ public class MyInstruction {
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GenericGenerator(name = "generator", strategy = "native")
     public int getId() {
         return id;
     }

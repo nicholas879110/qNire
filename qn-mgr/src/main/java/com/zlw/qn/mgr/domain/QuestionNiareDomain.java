@@ -1,5 +1,7 @@
 package com.zlw.qn.mgr.domain;
 
+import java.util.List;
+
 /**
  * Title: qNire<br>
  * Description: <br>
@@ -17,6 +19,15 @@ public class QuestionNiareDomain {
     private Integer status;
     private String desp;
     private Integer anonymousFlag;
+    private List<QnQuestionDomain> questions;
+
+    public List<QnQuestionDomain> getQuestions() {
+        return questions;
+    }
+
+    public void setQuestions(List<QnQuestionDomain> questions) {
+        this.questions = questions;
+    }
 
     public int getId() {
         return id;
