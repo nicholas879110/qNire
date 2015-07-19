@@ -20,7 +20,7 @@
         <%--</sec:authorize>
         <sec:authorize ifAnyGranted="USER_LV_MGR">--%>
             <li>
-                <a href="#"  view="/lv/init.do">
+                <a href="#"  view="/questionMgr/init.do">
                     <i class="icon-edit"></i>
                     <span class="menu-text">题库管理</span>
                 </a>
@@ -28,12 +28,18 @@
        <%-- </sec:authorize>
         <sec:authorize ifAnyGranted="USER_TEA_MGR">--%>
             <li>
-                <a href="#" view="/tea/init.do">
+                <a href="#" view="/tagMgr/init.do">
                     <i class="icon-edit"></i>
                     <span class="menu-text">标签管理 </span>
                 </a>
             </li>
         <%--</sec:authorize>--%>
+            <li>
+                <a href="#" view="/questionTypeMgr/init.do">
+                    <i class="icon-edit"></i>
+                    <span class="menu-text">题型管理 </span>
+                </a>
+            </li>
     </ul>
     <div class="sidebar-collapse" id="sidebar-collapse">
         <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>

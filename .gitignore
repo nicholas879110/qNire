@@ -8,3 +8,7 @@
 /qn-security/target
 /qn-user/target
 /qn-war/target
+/qn-war/*.iml
+/qn-war/.idea
+/commons/*.iml
+/framework/*.iml

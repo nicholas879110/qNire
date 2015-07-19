@@ -89,7 +89,7 @@
                 <prop key="hibernate.connection.url">jdbc:mysql://localhost:3306/vote</prop>
                 <prop key="hibernate.connection.driver_class">com.mysql.jdbc.Driver</prop>
                 <prop key="hibernate.connection.username">root</prop>
-                <prop key="hibernate.connection.password"></prop>
+                <prop key="hibernate.connection.password">123456</prop>
                 <!--<prop key="hibernate.query.substitutions">${hibernate.query.substitutions}</prop>-->
                 <!--<prop key="hibernate.default_batch_fetch_size">${hibernate.default_batch_fetch_size}</prop>-->
                 <!--<prop key="hibernate.generate_statistics">${hibernate.generate_statistics}</prop>-->

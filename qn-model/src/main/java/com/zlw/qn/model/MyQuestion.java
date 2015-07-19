@@ -78,12 +78,12 @@ public class MyQuestion {
 
     @Basic
     @Column(name = "keyword", nullable = true, insertable = true, updatable = true, length = 255, precision = 0)
-    public String getKeyword() {
+    public String getKeword() {
         return keword;
     }
 
-    public void setKeyword(String qnyword) {
-        this.keword = qnyword;
+    public void setKeword(String keword) {
+        this.keword = keword;
     }
 
     @Basic
