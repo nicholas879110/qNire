@@ -73,7 +73,7 @@ public class MyRefNqOption {
     }
 
     @ManyToOne
-    @JoinColumn(name = "option_id", referencedColumnName = "id")
+    @JoinColumn(name = "option_id", referencedColumnName = "id",insertable = false,updatable = false)
     public MyQuestionOption getMyQuestionOptionByOptionId() {
         return myQuestionOptionByOptionId;
     }
@@ -83,7 +83,7 @@ public class MyRefNqOption {
     }
 
     @ManyToOne
-    @JoinColumn(name = "qn_id", referencedColumnName = "id")
+    @JoinColumn(name = "qn_id", referencedColumnName = "id",insertable = false,updatable = false)
     public MyRefNaireQuestion getMyRefNaireQuestionByQnId() {
         return myRefNaireQuestionByQnId;
     }

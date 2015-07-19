@@ -1,7 +1,7 @@
 package com.zlw.qn.model;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Title: qNire<br>
@@ -17,7 +17,7 @@ import java.util.Collection;
 public class MyInstruction {
     private int id;
     private String content;
-    private Collection<MyRefNqIns> myRefNqInsesById;
+    private Set<MyRefNqIns> myRefNqInsesById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -60,11 +60,11 @@ public class MyInstruction {
     }
 
     @OneToMany(mappedBy = "myInstructionByInsId")
-    public Collection<MyRefNqIns> getMyRefNqInsesById() {
+    public Set<MyRefNqIns> getMyRefNqInsesById() {
         return myRefNqInsesById;
     }
 
-    public void setMyRefNqInsesById(Collection<MyRefNqIns> myRefNqInsesById) {
+    public void setMyRefNqInsesById(Set<MyRefNqIns> myRefNqInsesById) {
         this.myRefNqInsesById = myRefNqInsesById;
     }
 }

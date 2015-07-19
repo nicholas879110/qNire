@@ -1,7 +1,7 @@
 package com.zlw.qn.model;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Title: qNire<br>
@@ -17,7 +17,7 @@ import java.util.Collection;
 public class MyTag {
     private int id;
     private String tagName;
-    private Collection<MyQuestion> myQuestionsById;
+    private Set<MyQuestion> myQuestionsById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -60,11 +60,11 @@ public class MyTag {
     }
 
     @OneToMany(mappedBy = "myTagByTagId")
-    public Collection<MyQuestion> getMyQuestionsById() {
+    public Set<MyQuestion> getMyQuestionsById() {
         return myQuestionsById;
     }
 
-    public void setMyQuestionsById(Collection<MyQuestion> myQuestionsById) {
+    public void setMyQuestionsById(Set<MyQuestion> myQuestionsById) {
         this.myQuestionsById = myQuestionsById;
     }
 }

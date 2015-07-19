@@ -1,7 +1,7 @@
 package com.zlw.qn.model;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Title: qNire<br>
@@ -22,8 +22,8 @@ public class MyRefNaireQuestion {
     private Integer sOrder;
     private MyQuestion myQuestionByQuestionId;
     private MyQuestionaire myQuestionaireByNaireId;
-    private Collection<MyRefNqIns> myRefNqInsesById;
-    private Collection<MyRefNqOption> myRefNqOptionsById;
+    private Set<MyRefNqIns> myRefNqInsesById;
+    private Set<MyRefNqOption> myRefNqOptionsById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -36,7 +36,7 @@ public class MyRefNaireQuestion {
     }
 
     @Basic
-    @Column(name = "naire_id", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
+    @Column(name = "naire_id", nullable = true, insertable = false, updatable = false, length = 10, precision = 0)
     public Integer getNaireId() {
         return naireId;
     }
@@ -46,7 +46,7 @@ public class MyRefNaireQuestion {
     }
 
     @Basic
-    @Column(name = "question_id", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
+    @Column(name = "question_id", nullable = true, insertable = false, updatable = false, length = 10, precision = 0)
     public Integer getQuestionId() {
         return questionId;
     }
@@ -122,20 +122,20 @@ public class MyRefNaireQuestion {
     }
 
     @OneToMany(mappedBy = "myRefNaireQuestionByQnId")
-    public Collection<MyRefNqIns> getMyRefNqInsesById() {
+    public Set<MyRefNqIns> getMyRefNqInsesById() {
         return myRefNqInsesById;
     }
 
-    public void setMyRefNqInsesById(Collection<MyRefNqIns> myRefNqInsesById) {
+    public void setMyRefNqInsesById(Set<MyRefNqIns> myRefNqInsesById) {
         this.myRefNqInsesById = myRefNqInsesById;
     }
 
     @OneToMany(mappedBy = "myRefNaireQuestionByQnId")
-    public Collection<MyRefNqOption> getMyRefNqOptionsById() {
+    public Set<MyRefNqOption> getMyRefNqOptionsById() {
         return myRefNqOptionsById;
     }
 
-    public void setMyRefNqOptionsById(Collection<MyRefNqOption> myRefNqOptionsById) {
+    public void setMyRefNqOptionsById(Set<MyRefNqOption> myRefNqOptionsById) {
         this.myRefNqOptionsById = myRefNqOptionsById;
     }
 }

@@ -1,7 +1,7 @@
 package com.zlw.qn.model;
 
 import javax.persistence.*;
-import java.util.Collection;
+import java.util.Set;
 
 /**
  * Title: qNire<br>
@@ -20,11 +20,11 @@ public class MyQuestion {
     private String shortTitle;
     private Integer qtype;
     private Integer status;
-    private String keyword;
+    private String keword;
     private Integer tagId;
     private MyTag myTagByTagId;
     private MyQuestionType myQuestionTypeByQtype;
-    private Collection<MyRefNaireQuestion> myRefNaireQuestionsById;
+    private Set<MyRefNaireQuestion> myRefNaireQuestionsById;
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -79,11 +79,11 @@ public class MyQuestion {
     @Basic
     @Column(name = "keyword", nullable = true, insertable = true, updatable = true, length = 255, precision = 0)
     public String getKeyword() {
-        return keyword;
+        return keword;
     }
 
-    public void setKeyword(String keyword) {
-        this.keyword = keyword;
+    public void setKeyword(String qnyword) {
+        this.keword = qnyword;
     }
 
     @Basic
@@ -104,7 +104,7 @@ public class MyQuestion {
         MyQuestion that = (MyQuestion) o;
 
         if (id != that.id) return false;
-        if (keyword != null ? !keyword.equals(that.keyword) : that.keyword != null) return false;
+        if (keword != null ? !keword.equals(that.keword) : that.keword != null) return false;
         if (qtype != null ? !qtype.equals(that.qtype) : that.qtype != null) return false;
         if (shortTitle != null ? !shortTitle.equals(that.shortTitle) : that.shortTitle != null) return false;
         if (status != null ? !status.equals(that.status) : that.status != null) return false;
@@ -121,13 +121,13 @@ public class MyQuestion {
         result = 31 * result + (shortTitle != null ? shortTitle.hashCode() : 0);
         result = 31 * result + (qtype != null ? qtype.hashCode() : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
-        result = 31 * result + (keyword != null ? keyword.hashCode() : 0);
+        result = 31 * result + (keword != null ? keword.hashCode() : 0);
         result = 31 * result + (tagId != null ? tagId.hashCode() : 0);
         return result;
     }
 
     @ManyToOne
-    @JoinColumn(name = "tag_id", referencedColumnName = "id")
+    @JoinColumn(name = "tag_id", referencedColumnName = "id",insertable = false,updatable = false)
     public MyTag getMyTagByTagId() {
         return myTagByTagId;
     }
@@ -137,7 +137,7 @@ public class MyQuestion {
     }
 
     @ManyToOne
-    @JoinColumn(name = "qtype", referencedColumnName = "id")
+    @JoinColumn(name = "qtype", referencedColumnName = "id",insertable = false,updatable = false)
     public MyQuestionType getMyQuestionTypeByQtype() {
         return myQuestionTypeByQtype;
     }
@@ -147,11 +147,11 @@ public class MyQuestion {
     }
 
     @OneToMany(mappedBy = "myQuestionByQuestionId")
-    public Collection<MyRefNaireQuestion> getMyRefNaireQuestionsById() {
+    public Set<MyRefNaireQuestion> getMyRefNaireQuestionsById() {
         return myRefNaireQuestionsById;
     }
 
-    public void setMyRefNaireQuestionsById(Collection<MyRefNaireQuestion> myRefNaireQuestionsById) {
+    public void setMyRefNaireQuestionsById(Set<MyRefNaireQuestion> myRefNaireQuestionsById) {
         this.myRefNaireQuestionsById = myRefNaireQuestionsById;
     }
 }
