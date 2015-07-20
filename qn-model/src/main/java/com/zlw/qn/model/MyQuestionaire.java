@@ -3,6 +3,7 @@ package com.zlw.qn.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -24,6 +25,27 @@ public class MyQuestionaire {
     private String desp;
     private Integer anonymousFlag;
     private Set<MyRefNaireQuestion> myRefNaireQuestionsById;
+    private Date updateTime;
+    private SysUser user;
+
+    @Column(name = "update_time")
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "update_user")
+    public SysUser getUser() {
+        return user;
+    }
+
+    public void setUser(SysUser user) {
+        this.user = user;
+    }
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)

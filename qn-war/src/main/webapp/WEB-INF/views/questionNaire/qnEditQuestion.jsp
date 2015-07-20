@@ -1,9 +1,10 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 
 <div class="row">
     <div class="page-header">
         <h1>
-            新建问题
+            编辑问题
         </h1>
     </div>
 
@@ -12,29 +13,27 @@
         <form action="/qn/save.action" class="form-horizontal form-border" method="post" id="qnAddFrom">
 
             <input type="hidden" name="niareId" value="${niareId}">
-            <input type="hidden" name="sOrder" value="${sOrder}">
-
+            <input type="hidden" name="sOrder" value="${ques.sOrder}">
+            <input type="hidden" name="id" value="${ques.id}">
             <table class="table table-striped table-bordered table-hover center">
                 <tr width="30%">
                     <td>
                         题型
                     </td>
                     <td>
-                        <select class="form-control"  name="qtype">
+                        <select class="form-control"  name="qtype" disabled>
                             <option value="0">单选题</option>
                             <option value="1">单选题</option>
                         </select>
                     </td>
                 </tr>
 
-
-
                 <tr>
                     <td>
                         编号
                     </td>
                     <td>
-                        <input class="form-control" type="text" name="sn">
+                        <input class="form-control" type="text" name="sn" value="${ques.sn}">
                     </td>
                 </tr>
 
@@ -43,7 +42,7 @@
                         标题
                     </td>
                     <td>
-                        <input class="form-control" type="text" name="title">
+                        <input class="form-control" type="text" name="title" value="${ques.title}">
                     </td>
                 </tr>
 
@@ -52,7 +51,7 @@
                         提示
                     </td>
                     <td>
-                        <input class="form-control" type="text" name="ins">
+                        <input class="form-control" type="text" name="ins" value="${ques.ins}">
                     </td>
                 </tr>
 
@@ -62,32 +61,21 @@
                     </td>
                     <td id="optionTd">
 
-                        <div class="form-group">
-                            <%--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Password Field </label>--%>
+                        <c:forEach items="${ques.options}" var="opt" varStatus="sts">
 
-                            <div class="col-sm-9">
-                                <input type="text" id="form-field-2" placeholder="选项1" class="col-xs-10 col-sm-5"name="options[0].answer" />
-											<span class="help-inline col-xs-12 col-sm-7">
-												<span class="middle">
-                                                        <a href="javascript:void(0)" onclick="deleteOption(this)">删除</a>
-												</span>
-											</span>
+                            <div class="form-group">
+
+                                <div class="col-sm-9">
+                                    <input type="hidden" value="${opt.id}" name="options[${sts.index}].id">
+                                    <input type="text" value="${opt.answer}" id="form-field-2" placeholder="选项1" class="col-xs-10 col-sm-5"name="options[${sts.index}].answer" />
+                                                <span class="help-inline col-xs-12 col-sm-7">
+                                                    <span class="middle">
+                                                            <a href="javascript:void(0)" onclick="deleteOption(this,'${opt.id}','${ques.id}','${niareId}')">删除</a>
+                                                    </span>
+                                                </span>
+                                </div>
                             </div>
-                        </div>
-
-                        <div class="form-group">
-                            <%--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Password Field </label>--%>
-
-                            <div class="col-sm-9">
-                                <input type="text"  placeholder="选项2" class="col-xs-10 col-sm-5"name="options[1].answer" />
-											<span class="help-inline col-xs-12 col-sm-7">
-												<span class="middle">
-                                                        <a href="javascript:void(0)" onclick="deleteOption(this)">删除</a>
-												</span>
-											</span>
-                            </div>
-                        </div>
-
+                        </c:forEach>
 
                         <div id="operationDiv" class="col-xs-12 col-sm-9 align-left">
                             <a href="javascript:void(0)" onclick="appendOption(this)">增加</a>
@@ -133,7 +121,7 @@
             var $form = $('#qnAddFrom');
             //var fd = new FormData($form.get(0));
             $.ajax({
-                url: "${ctx}/qn/saveQuestion.do",
+                url: "${ctx}/qn/updateQuestion.do",
                 type: $form.attr('method'),
 //                processData: false,
 //                contentType: false,
@@ -167,6 +155,29 @@
         $.each(rows,function(index,tr){
             $(tr).find("input:first").attr("name","options["+index+"].answer");
         })
+    }
+
+
+    function deleteOption(dom,optionId,questionId,niareId){
+        $.ajax({
+            url: "${ctx}/qn/removeQuestionOption.do",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                optionId:optionId,
+                questionId:questionId,
+                niareId:niareId
+            },
+            success: function (data, textStatus, jqXHR) {
+                if (data.code == 0) {
+                    $(dom).parents(".form-group").remove();
+                    sort();
+                } else {
+                    bootBoxError(data.msg, "error！");
+                }
+            }
+        });
+
     }
 
 

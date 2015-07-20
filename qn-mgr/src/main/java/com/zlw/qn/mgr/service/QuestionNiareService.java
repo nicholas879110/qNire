@@ -34,4 +34,12 @@ public interface QuestionNiareService {
 
     void saveQuestion(Integer naireId, QnQuestionDomain questionDomain);
 
+    void removeQuestion(Integer niareId, Integer questionId,Integer sOrder);
+
+    QnQuestionDomain queryQnQuestionDomain(Integer niareId, Integer questionId, Integer sOrder);
+
+    void removeQuestionOption(Integer niareId, Integer questionId, Integer optionId);
+
+    void updateQuestion(Integer niareId, QnQuestionDomain questionDomain);
+
 }

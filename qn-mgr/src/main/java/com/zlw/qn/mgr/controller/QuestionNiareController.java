@@ -78,9 +78,13 @@ public class QuestionNiareController {
     @RequestMapping(value = "edit")
     public ModelAndView edit(Integer id){
         ModelAndView mav=new ModelAndView();
+        QuestionNiareDomain domain=questionNiareService.queryDomain(id);
+        mav.addObject("niare",domain);
         mav.setViewName("/questionNaire/qnEdit");
         return mav;
     }
+
+
 
 
     @RequestMapping(value = "update")
@@ -169,10 +173,11 @@ public class QuestionNiareController {
 
 
     @RequestMapping(value = "addQuestionInit")
-    public ModelAndView addQuestionInit(Integer id){
+    public ModelAndView addQuestionInit(Integer id,Integer sOrder){
         ModelAndView mav=new ModelAndView();
 //        QuestionNiareDomain domain=questionNiareService.queryDomain(id);
         mav.addObject("niareId",id);
+        mav.addObject("sOrder",sOrder);
         mav.setViewName("/questionNaire/qnAddQuestion");
         return mav;
     }
@@ -193,5 +198,70 @@ public class QuestionNiareController {
         }
         return msg;
     }
+
+
+    @RequestMapping(value = "removeQuestion")
+    @ResponseBody
+    public BaseMessage removeQuestion(Integer niareId,Integer questionId,Integer sOrder) {
+        BaseMessage msg=null;
+        try {
+            questionNiareService.removeQuestion(niareId, questionId, sOrder);
+            msg=BaseMessage.successMsg("删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg=BaseMessage.errorMsg("删除失败");
+        }
+        return msg;
+    }
+  
+
+    @RequestMapping(value = "editQuestionInit")
+    public ModelAndView editQuestionInit(Integer niareId,Integer questionId,Integer sOrder){
+        ModelAndView mav=new ModelAndView();
+        QnQuestionDomain domain= null;
+        try {
+            domain = questionNiareService.queryQnQuestionDomain(niareId, questionId, sOrder);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        mav.addObject("ques",domain);
+        mav.addObject("niareId",niareId);
+        mav.setViewName("/questionNaire/qnEditQuestion");
+        return mav;
+    }
+  
+
+
+    @RequestMapping(value = "updateQuestion")
+    @ResponseBody
+    public BaseMessage updateQuestion(Integer niareId,QnQuestionDomain questionDomain) {
+        BaseMessage msg=null;
+        try {
+            questionNiareService.updateQuestion(niareId, questionDomain);
+            msg=BaseMessage.successMsg("保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg=BaseMessage.errorMsg("新增失败");
+        }
+        return msg;
+    }
+
+
+    @RequestMapping(value = "removeQuestionOption")
+    @ResponseBody
+    public BaseMessage removeQuestionOption(Integer niareId,Integer questionId,Integer optionId) {
+        BaseMessage msg=null;
+        try {
+            questionNiareService.removeQuestionOption(niareId, questionId, optionId);
+            msg=BaseMessage.successMsg("删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            msg=BaseMessage.errorMsg("新增失败");
+        }
+        return msg;
+    }
+
+
+
 
 }

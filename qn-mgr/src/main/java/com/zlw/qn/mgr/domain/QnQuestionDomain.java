@@ -19,7 +19,9 @@ public class QnQuestionDomain {
     private Integer qtype;
     private Integer status;
     private String keword;
-    private Integer oIndex;
+    private Integer sOrder;
+    private Integer preQuestionId;
+    private Integer preIndex;
     private String sn;
     private String ins;//提示
 
@@ -27,6 +29,14 @@ public class QnQuestionDomain {
 
     public int getId() {
         return id;
+    }
+
+    public Integer getPreIndex() {
+        return preIndex;
+    }
+
+    public void setPreIndex(Integer preIndex) {
+        this.preIndex = preIndex;
     }
 
     public void setId(int id) {
@@ -81,12 +91,12 @@ public class QnQuestionDomain {
         this.options = options;
     }
 
-    public Integer getoIndex() {
-        return oIndex;
+    public Integer getsOrder() {
+        return sOrder;
     }
 
-    public void setoIndex(Integer oIndex) {
-        this.oIndex = oIndex;
+    public void setsOrder(Integer sOrder) {
+        this.sOrder = sOrder;
     }
 
     public String getSn() {
@@ -103,5 +113,13 @@ public class QnQuestionDomain {
 
     public void setIns(String ins) {
         this.ins = ins;
+    }
+
+    public Integer getPreQuestionId() {
+        return preQuestionId;
+    }
+
+    public void setPreQuestionId(Integer preQuestionId) {
+        this.preQuestionId = preQuestionId;
     }
 }

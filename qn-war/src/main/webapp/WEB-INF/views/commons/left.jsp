@@ -40,6 +40,13 @@
                     <span class="menu-text">题型管理 </span>
                 </a>
             </li>
+
+            <li>
+                <a href="#" view="/user/init.do">
+                    <i class="icon-edit"></i>
+                    <span class="menu-text">用户列表 </span>
+                </a>
+            </li>
     </ul>
     <div class="sidebar-collapse" id="sidebar-collapse">
         <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>

@@ -50,7 +50,7 @@
                                                         </td>
                                                     </tr>
                                                 </c:forEach>
-                                                <tr>
+                                                <%--<tr>
                                                     <td align="left">
                                                         <a href="">增加</a>
                                                         <a href=">">插入</a>
@@ -60,15 +60,16 @@
                                                         <a href="">从剪贴板粘贴</a>
 
                                                     </td>
-                                                </tr>
+                                                </tr>--%>
                                             </table>
                                         </td>
                                    </tr>
                                    <tr>
+
                                        <td align="left">
-                                           <a href="">插入题目</a>
-                                           <a href=">">编辑题目</a>
-                                           <a onclick="" href="#">删除题目</a>
+                                           <a href="javascript:void(0)" onclick="insertQues('${niare.id}','${ques.sOrder}');">插入题目</a>
+                                           <a href="javascript:void(0)" onclick="editQues('${niare.id}','${ques.id}','${ques.sOrder}');">编辑题目</a>
+                                           <a href="javascript:void(0)" onclick="removeQues('${niare.id}','${ques.id}','${ques.sOrder}')">删除题目</a>
                                        </td>
                                    </tr>
                                </c:forEach>
@@ -82,7 +83,7 @@
 
             <div class="col-xs-12 center">
                 <div class="space-16"></div>
-                <a id="save-btn" href="javaScript:void(0);" class="btn btn-primary btn-rounded">保存</a>
+                <%--<a id="save-btn" href="javaScript:void(0);" class="btn btn-primary btn-rounded">保存</a>--%>
                 <a id="back-btn" href="javaScript:void(0);" class="btn btn-primary btn-rounded">返回</a>
             </div>
         </form>
@@ -122,6 +123,44 @@
     function newQues(id){
         switchPage("/qn/addQuestionInit.do",{
             id:id
+        })
+    }
+
+    function insertQues(niareId,sOrder){
+        switchPage("/qn/addQuestionInit.do",{
+            id:niareId,
+            sOrder:sOrder
+        })
+    }
+
+    function removeQues(niareId,questionId,sOrder){
+        $.ajax({
+            url: "${ctx}/qn/removeQuestion.do",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                niareId:niareId,
+                sOrder:sOrder,
+                questionId:questionId
+            },
+            success: function (data, textStatus, jqXHR) {
+                if (data.code == 0) {
+                    switchPage("/qn/editConntent.do",{
+                        id:niareId
+                    })
+                } else {
+                    bootBoxError(data.msg, "error！");
+                }
+            }
+        });
+    }
+
+    function  editQues(niareId,questionId,sOrder){
+        switchPage("/qn/editQuestionInit.do",{
+            niareId:niareId,
+            questionId: questionId,
+            sOrder:sOrder
+
         })
     }
 

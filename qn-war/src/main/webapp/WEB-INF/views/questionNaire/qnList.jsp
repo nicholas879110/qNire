@@ -130,9 +130,12 @@
 
 
         $("#edit-btn").click(function(){
-            var checkeded = $('#qnList').find("[name='id']:checked").val();
+            var id = $('#qnList').find("[name='id']:checked").val();
             //var sData = $('#qnList').dataTable().fnGetData($(checkeded).parents("#qnList tr").get(0));
-            console.dir(checkeded);
+//            console.dir(checkeded);
+            switchPage("/qn/edit.do",{
+                id:id
+            })
         })
 
 
@@ -162,7 +165,61 @@
                 id:id
             })
         })
+        $("#deploy-btn").click(function(){
+            var id= $('#qnList').find("[name='id']:checked").val();
+            $.ajax({
+                url: "${ctx}/qn/deploy.do",
+                type: 'post',
+                data: {
+                    id: id
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.code == 0) {
+                        $('#qnList').dataTable().fnClearTable();
+                    } else {
+                        bootBoxError("delete error!")
+                    }
+                }
+            });
+        })
 
+
+        $("#cancel-btn").click(function(){
+            var id= $('#qnList').find("[name='id']:checked").val();
+            $.ajax({
+                url: "${ctx}/qn/cancelDeploy.do",
+                type: 'post',
+                data: {
+                    id: id
+                },
+                success: function (data, textStatus, jqXHR) {
+                    if (data.code == 0) {
+                        $('#qnList').dataTable().fnClearTable();
+                    } else {
+                        bootBoxError("delete error!")
+                    }
+                }
+            });
+        })
+
+
+        $("#preview-btn").click(function(){
+            var id = $('#qnList').find("[name='id']:checked").val();
+            //var sData = $('#qnList').dataTable().fnGetData($(checkeded).parents("#qnList tr").get(0));
+//            console.dir(checkeded);
+            switchPage("/qn/editConntent.do",{
+                id:id
+            })
+        })
+
+        $("#count-btn").click(function(){
+            var id = $('#qnList').find("[name='id']:checked").val();
+            //var sData = $('#qnList').dataTable().fnGetData($(checkeded).parents("#qnList tr").get(0));
+//            console.dir(checkeded);
+            switchPage("/qn/editConntent.do",{
+                id:id
+            })
+        })
 
     })
 

@@ -1,5 +1,6 @@
 package com.zlw.qn.mgr.domain;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -20,6 +21,24 @@ public class QuestionNiareDomain {
     private String desp;
     private Integer anonymousFlag;
     private List<QnQuestionDomain> questions;
+    private Date updateTime;
+    private String updateUser;
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getUpdateUser() {
+        return updateUser;
+    }
+
+    public void setUpdateUser(String updateUser) {
+        this.updateUser = updateUser;
+    }
 
     public List<QnQuestionDomain> getQuestions() {
         return questions;
