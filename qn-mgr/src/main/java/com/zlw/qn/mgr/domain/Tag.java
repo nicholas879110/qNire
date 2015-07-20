@@ -6,6 +6,7 @@ package com.zlw.qn.mgr.domain;
 public class Tag {
     private int id;
     private String tagName;
+    private String tagImgPath;
 
     public int getId() {
         return id;
@@ -21,5 +22,13 @@ public class Tag {
 
     public void setTagName(String tagName) {
         this.tagName = tagName;
+    }
+
+    public String getTagImgPath() {
+        return tagImgPath;
+    }
+
+    public void setTagImgPath(String tagImgPath) {
+        this.tagImgPath = tagImgPath;
     }
 }

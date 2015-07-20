@@ -121,10 +121,16 @@
                     "sClass": "center"
                 },
                 {
-                    "sWidth": "80%",
+                    "sWidth": "40%",
                     "bSortable": false,
                     "mData": "tagName",
                     "sTitle": "标签名称",
+                    "sClass": "center"
+                },
+                {
+                    "sWidth": "40%",
+                    "bSortable": false,
+                    "sTitle": "标签图标",
                     "sClass": "center"
                 },
                 {
@@ -142,7 +148,7 @@
                 },
             {
                 "sClass": "rowcheckbox", "aTargets": [0],
-                "aTargets": [2], "mRender": function (data, type, full) {
+                "aTargets": [3], "mRender": function (data, type, full) {
                 return '<a title="修改" href="javaScript:void(0);" onclick="updateTag(\'' + data + '\');" ><i class="icon-edit bigger-130"></i>&nbsp;&nbsp;</a>'
             }
             }
@@ -150,6 +156,7 @@
             //设置第0排 name="userId"
             "fnRowCallback": function (nRow, aData, iDisplayIndex) {
                 $('td:eq(0)', nRow).html('<label class="center"><input type="checkbox" class="ace" name="id" value="' + aData["id"] + '" /><span style="width:0px;" class="lbl"></span></label>');
+                $('td:eq(2)', nRow).html('<label class="center"><img class="ace" height="25px" width="25px" src="${ctx}/img_save_path/' + aData["tagImgPath"] + '" /><span style="width:0px;" class="lbl"></span></label>');
             },
             "fnDrawCallback": function (oSettings) {
                 //取消第一列class="selectrow"的checkbox框选中状态
