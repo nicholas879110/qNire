@@ -19,6 +19,7 @@ import java.util.Set;
 public class MyTag {
     private int id;
     private String tagName;
+    private String tagImgPath;
     private Set<MyQuestion> myQuestionsById;
 
     @Id
@@ -41,6 +42,16 @@ public class MyTag {
 
     public void setTagName(String tagName) {
         this.tagName = tagName;
+    }
+
+    @Basic
+    @Column(name = "tag_img_path", nullable = true, insertable = true, updatable = true, length = 1024, precision = 0)
+    public String getTagImgPath() {
+        return tagImgPath;
+    }
+
+    public void setTagImgPath(String tagImgPath) {
+        this.tagImgPath = tagImgPath;
     }
 
     @Override

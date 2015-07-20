@@ -21,6 +21,14 @@
                     <input class="form-control" type="text" name="tagName" value="${tag.tagName}">
                 </div>
             </div>
+            <div class="form-group no-margin-left no-margin-right">
+                <label class="col-sm-3 control-label col-xs-12  no-padding">标签图标:</label>
+
+                <div class=" col-xs-12 col-sm-9">
+                    <input class="form-control" type="file" name="tagImg">
+                </div>
+            </div>
+
             <div class="col-xs-12 center">
                 <div class="space-16"></div>
                 <a id="update-btn" href="javaScript:void(0);" class="btn btn-primary btn-rounded">保存</a>

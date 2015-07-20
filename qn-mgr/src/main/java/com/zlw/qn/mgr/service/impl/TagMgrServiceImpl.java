@@ -13,6 +13,15 @@ import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Calendar;
 
 /**
  * Created by YT on 2015/7/19.
@@ -29,7 +38,7 @@ public class TagMgrServiceImpl implements TagMgrService{
         ProjectionList projectionList = Projections.projectionList();
         projectionList.add(Projections.property("id").as("id"));
         projectionList.add(Projections.property("tagName").as("tagName"));
-
+        projectionList.add(Projections.property("tagImgPath").as("tagImgPath"));
         Pager<Tag> pager = tagMgrDao.pagerData(projectionList, Tag.class, criteria, pagerQuery);
         return pager;
     }
@@ -37,7 +46,12 @@ public class TagMgrServiceImpl implements TagMgrService{
     @Override
     public void deleteTag(String pk) {
         if(StringUtils.isNotBlank(pk)){
-            tagMgrDao.delete(MyTag.class,Integer.valueOf(pk));
+            MyTag myTag = tagMgrDao.get(MyTag.class,Integer.valueOf(pk));
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            String path = request.getSession().getServletContext().getRealPath("/")+"img_save_path";
+            File file = new File(path+"/"+myTag.getTagImgPath());
+            file.delete();
+            tagMgrDao.delete(myTag);
         }
     }
 
@@ -60,9 +74,11 @@ public class TagMgrServiceImpl implements TagMgrService{
 
     @Override
     public void updateTag(Tag domain) {
-        MyTag myTag = new MyTag();
-        myTag.setId(domain.getId());
+        MyTag myTag = tagMgrDao.get(MyTag.class,domain.getId());
         myTag.setTagName(domain.getTagName());
+        if(StringUtils.isNotBlank(domain.getTagImgPath())){
+            myTag.setTagImgPath(domain.getTagImgPath());
+        }
         tagMgrDao.update(myTag);
     }
 
@@ -70,6 +86,37 @@ public class TagMgrServiceImpl implements TagMgrService{
     public void saveTag(Tag domain) {
         MyTag myTag = new MyTag();
         myTag.setTagName(domain.getTagName());
+        myTag.setTagImgPath(domain.getTagImgPath());
         tagMgrDao.save(myTag);
+    }
+
+    @Override
+    public void saveFileFromInputStream(InputStream stream, String path, String time,String filename) throws IOException {
+        File file = new File(path+File.separator+time);
+        if(!file.exists()) {
+            file.mkdirs();
+        }
+        FileOutputStream fs = new FileOutputStream(path + File.separator + filename);
+        byte[] buffer = new byte[1024 * 1024];
+        int bytesum = 0;
+        int byteread = 0;
+        while ((byteread = stream.read(buffer)) != -1) {
+            bytesum += byteread;
+            fs.write(buffer, 0, byteread);
+            fs.flush();
+        }
+        fs.close();
+        stream.close();
+    }
+
+    @Override
+    public void deleteTagImg(Integer id) throws Exception{
+        if(id != null){
+            MyTag myTag = tagMgrDao.get(MyTag.class,id);
+            HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+            String path = request.getSession().getServletContext().getRealPath("/")+"img_save_path";
+            File file = new File(path+"/"+myTag.getTagImgPath());
+            file.delete();
+        }
     }
 }
