@@ -1,4 +1,5 @@
 <%@page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <div class="row">
     <div class="page-header">
@@ -11,8 +12,8 @@
         <!-- PAGE CONTENT BEGINS -->
         <form action="/qn/save.action" class="form-horizontal form-border" method="post" id="qnAddFrom">
 
-            <input type="hidden" name="niareId" value="${niareId}">
-            <input type="hidden" name="sOrder" value="${sOrder}">
+            <%--<input type="hidden" name="niareId" value="${niareId}">--%>
+            <%--<input type="hidden" name="sOrder" value="${sOrder}">--%>
 
             <table class="table table-striped table-bordered table-hover center">
                 <tr width="30%">
@@ -20,15 +21,24 @@
                         题型
                     </td>
                     <td>
-                        <select class="form-control"  name="qtype">
-                            <option value="0">单选题</option>
-                            <option value="1">单选题</option>
+                        <select class="form-control" name="qtype">
+                            <c:forEach items="${types }" var="type">
+                                <option value="${type.id }">${type.name }</option>
+                            </c:forEach>
                         </select>
                     </td>
                 </tr>
-
-
-
+                <tr width="30%">
+                    <td>
+                        标签
+                    </td>
+                    <td class="align-left">
+                        <c:forEach items="${tags }" var="tagV" varStatus="status">
+                            <input name="tags" type="checkbox" value="${tagV.id }">${tagV.tagName }<img
+                                src="${ctx}/img_save_path/${tagV.tagImgPath }" width="25px" height="20px">
+                        </c:forEach>
+                    </td>
+                </tr>
                 <tr>
                     <td>
                         编号
@@ -66,7 +76,8 @@
                             <%--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Password Field </label>--%>
 
                             <div class="col-sm-9">
-                                <input type="text" id="form-field-2" placeholder="选项1" class="col-xs-10 col-sm-5"name="options[0].answer" />
+                                <input type="text" id="form-field-2" placeholder="选项1" class="col-xs-10 col-sm-5"
+                                       name="options[0].answer"/>
 											<span class="help-inline col-xs-12 col-sm-7">
 												<span class="middle">
                                                         <a href="javascript:void(0)" onclick="deleteOption(this)">删除</a>
@@ -79,7 +90,8 @@
                             <%--<label class="col-sm-3 control-label no-padding-right" for="form-field-2"> Password Field </label>--%>
 
                             <div class="col-sm-9">
-                                <input type="text"  placeholder="选项2" class="col-xs-10 col-sm-5"name="options[1].answer" />
+                                <input type="text" placeholder="选项2" class="col-xs-10 col-sm-5"
+                                       name="options[1].answer"/>
 											<span class="help-inline col-xs-12 col-sm-7">
 												<span class="middle">
                                                         <a href="javascript:void(0)" onclick="deleteOption(this)">删除</a>
@@ -91,9 +103,6 @@
 
                         <div id="operationDiv" class="col-xs-12 col-sm-9 align-left">
                             <a href="javascript:void(0)" onclick="appendOption(this)">增加</a>
-                            <%--<a href="javascript:void(0)" onclick="selectOption(this)">从库中选择</a>
-                            <a href="javascript:void(0)" onclick="appendOption(this)">从问卷中复制</a>
-                            <a href="javascript:void(0)" onclick="appendOption(this)">从剪贴板粘贴</a>--%>
                         </div>
                     </td>
                 </tr>
@@ -118,6 +127,7 @@
 
         <div class="form-group no-margin-left no-margin-right">
             <label class="col-sm-3 control-label col-xs-12  no-padding-right" for="name">name:</label>
+
             <div class="col-xs-12 col-sm-9">
                 <input id="name" type="text" class="form-control" name="name">
             </div>
@@ -128,15 +138,12 @@
 
 
 <script type="text/javascript">
-    $(function(){
-        $("#save-btn").click(function(){
+    $(function () {
+        $("#save-btn").click(function () {
             var $form = $('#qnAddFrom');
-            //var fd = new FormData($form.get(0));
             $.ajax({
-                url: "${ctx}/qn/saveQuestion.do",
+                url: "${ctx}/questionMgr/save.do",
                 type: $form.attr('method'),
-//                processData: false,
-//                contentType: false,
                 dataType: 'json',
                 data: $form.serialize(),
                 success: function (data, textStatus, jqXHR) {
@@ -149,28 +156,26 @@
             });
         })
 
-        $("#back-btn").click(function(){
-            switchPage("/qn/editConntent.do",{
-                id:'${niareId}'
-            })
+        $("#back-btn").click(function () {
+            switchPage("/questionMgr/init.do")
         })
     })
 
-    function deleteOption(dom){
+    function deleteOption(dom) {
         $(dom).parents(".form-group").remove();
         sort();
     }
 
-    function sort(){
-        var rows=$("#optionTd").find(".form-group");
+    function sort() {
+        var rows = $("#optionTd").find(".form-group");
 
-        $.each(rows,function(index,tr){
-            $(tr).find("input:first").attr("name","options["+index+"].answer");
+        $.each(rows, function (index, tr) {
+            $(tr).find("input:first").attr("name", "options[" + index + "].answer");
         })
     }
 
 
-    var optionTpm= "<div class=\"form-group\">\
+    var optionTpm = "<div class=\"form-group\">\
             <div class=\"col-sm-9\">\
             <input type=\"text\"  placeholder=\"选项{sn}\" class=\"col-xs-10 col-sm-5\" name=\"options[{index}].answer\" />\
             <span class=\"help-inline col-xs-12 col-sm-7\">\
@@ -180,15 +185,15 @@
             </span>\
         </div>\
     </div>";
-    function appendOption(){
-        var rows=$("#optionTd").find(".form-group").length;
+    function appendOption() {
+        var rows = $("#optionTd").find(".form-group").length;
         console.log(optionTpm);
         console.log()
         //$("#operationDiv").insertBefore(optionTpm.replace("{sn}",rows+1).replace("{index}",rows));
-        $("#operationDiv").before(optionTpm.replace("{sn}",rows+1).replace("{index}",rows));
+        $("#operationDiv").before(optionTpm.replace("{sn}", rows + 1).replace("{index}", rows));
     }
 
-    function selectOption(){
+    function selectOption() {
 
     }
 

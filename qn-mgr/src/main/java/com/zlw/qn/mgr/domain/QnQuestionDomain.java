@@ -24,7 +24,7 @@ public class QnQuestionDomain {
     private Integer preIndex;
     private String sn;
     private String ins;//提示
-
+    private String[] tags;
     private List<QnQuestionOptionDomain> options;
 
     public int getId() {
@@ -121,5 +121,13 @@ public class QnQuestionDomain {
 
     public void setPreQuestionId(Integer preQuestionId) {
         this.preQuestionId = preQuestionId;
+    }
+
+    public String[] getTags() {
+        return tags;
+    }
+
+    public void setTags(String[] tags) {
+        this.tags = tags;
     }
 }
