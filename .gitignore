@@ -13,3 +13,5 @@
 /commons/*.iml
 /framework/*.iml
 /qn-mgr/*.iml
+/qn-user/*.iml
+/qn-security/*.iml
