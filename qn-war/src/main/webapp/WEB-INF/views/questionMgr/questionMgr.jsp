@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+
 <div class="row">
     <div class="page-header">
         <h1>
@@ -21,23 +23,25 @@
 
     <div class="col-xs-12 table-responsive">
         <form action="/questionMgr/exportQues.action" class="form-horizontal form-border" method="post" id="queryFrom">
-            题目类型：
-            <select id="types" name="qtype">
-                <option value="">所有</option>
-                <c:forEach items="${types }" var="type">
-                    <option value="${type.id }">${type.name }</option>
-                </c:forEach>
-            </select>
-            标签：
-            <select id="tags" name="tagId">
-                <option value="">所有</option>
+            <div class="col-xs-12">
+                标签：
                 <c:forEach items="${tags }" var="tagV">
-                <option value="${tagV.id }">${tagV.tagName }</option>
-            </c:forEach>
-            </select>
-            关键字：
-            <input type="text" name="keyword">
-            <a id="ques-query-btn" href="javaScript:void(0);" class="btn btn-rounded btn-primary">查询</a>
+                    <input name="tags" type="checkbox" value="${tagV.id }">${tagV.tagName }<img src="${ctx}/img_save_path/${tagV.tagImgPath }" width="25px" height="20px">
+                </c:forEach>
+            </div>
+            <div class="col-xs-12">
+                题目类型：
+                <select id="types" name="qtype">
+                    <option value="">所有</option>
+                    <c:forEach items="${types }" var="type">
+                        <option value="${type.id }">${type.name }</option>
+                    </c:forEach>
+                </select>
+                关键字：
+                <input type="text" name="keyword">
+                <a id="ques-query-btn" href="javaScript:void(0);" class="btn btn-minier btn-info">查询</a>
+            </div>
+
         </form>
         <div class="space-12"></div>
         <table id="qmList" class="table table-striped table-bordered table-hover"></table>
@@ -125,6 +129,10 @@
         switchPage("/questionMgr/updateInit.do", {"id": data});
     }
 
+    function detailQuestion(data) {
+        switchPage("/questionMgr/detailInit.do", {"id": data});
+    }
+
     $(function () {
         $("#add-btn").click(function () {
             switchPage("/questionMgr/addInit.do")
@@ -197,7 +205,7 @@
                 {
                     "sClass": "rowcheckbox", "aTargets": [0],
                     "aTargets": [5], "mRender": function (data, type, full) {
-                    return '<a title="修改" href="javaScript:void(0);" onclick="detailQuestion(\'' + data + '\');" ><i class="icon-search bigger-130"></i>&nbsp;&nbsp;</a>' +
+                    return '<a title="查看" href="javaScript:void(0);" onclick="detailQuestion(\'' + data + '\');" ><i class="icon-search bigger-130"></i>&nbsp;&nbsp;</a>' +
                             '<a title="修改" href="javaScript:void(0);" onclick="updateQuestion(\'' + data + '\');" ><i class="icon-edit bigger-130"></i>&nbsp;&nbsp;</a>'
                 }
                 }

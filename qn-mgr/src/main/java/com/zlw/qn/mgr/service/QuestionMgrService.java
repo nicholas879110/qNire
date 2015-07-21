@@ -2,6 +2,7 @@ package com.zlw.qn.mgr.service;
 
 import com.zlw.qn.framework.page.Pager;
 import com.zlw.qn.framework.page.PagerQuery;
+import com.zlw.qn.mgr.domain.QnQuestionDomain;
 import com.zlw.qn.mgr.domain.QusetionType;
 import com.zlw.qn.mgr.domain.Tag;
 import com.zlw.qn.model.MyQuestion;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public interface QuestionMgrService  {
 
-    public Pager pager(PagerQuery pagerQuery,String qtype,String tag,String keyword) throws Exception;
+    public Pager pager(PagerQuery pagerQuery,String qtype,String[] tags,String keyword) throws Exception;
 
     public void insertQuestion(MyQuestion myQuestion);
 
@@ -26,9 +27,9 @@ public interface QuestionMgrService  {
 
     public void deleteQues(String pks);
 
-    public void exportQue(String pk);
+    public void updateExportQue(String pk);
 
-    public void exportQues(String pks);
+    public void updateExportQues(String pks);
 
     public void saveType(QusetionType domain);
 
@@ -39,4 +40,8 @@ public interface QuestionMgrService  {
     public List<Tag> getTagList();
 
     public List<QusetionType> getQusetionTypeList();
+
+    public void saveDomain(QnQuestionDomain domain);
+
+    public MyQuestion useMyQuestionById(String id);
 }

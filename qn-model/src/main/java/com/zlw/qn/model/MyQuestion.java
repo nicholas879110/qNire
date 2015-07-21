@@ -24,6 +24,7 @@ public class MyQuestion {
     private Integer qtype;
     private Integer status;
     private String keword;
+    private String ins;
     private Integer tagId;
     private MyTag myTagByTagId;
     private MyQuestionType myQuestionTypeByQtype;
@@ -119,6 +120,16 @@ public class MyQuestion {
 
     public void setTagId(Integer tagId) {
         this.tagId = tagId;
+    }
+
+    @Basic
+    @Column(name = "INS", nullable = true, insertable = true, updatable = true, length = 255, precision = 0)
+    public String getIns() {
+        return ins;
+    }
+
+    public void setIns(String ins) {
+        this.ins = ins;
     }
 
     @Override
