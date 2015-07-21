@@ -15,4 +15,8 @@ import com.zlw.qn.mgr.domain.UserDomain;
  */
 public interface UserListService {
     Pager<UserDomain> pager(PagerQuery pagerQuery);
+
+    void saveData();
+
+
 }

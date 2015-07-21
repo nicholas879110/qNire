@@ -21,6 +21,27 @@ public class MyQuestionOption {
     private String answer;
     private String remark;
     private Set<MyRefNqOption> myRefNqOptionsById;
+    private int quesId;
+    private MyQuestion myQuestion;
+
+
+    @Column(name = "ques_id", nullable = true, insertable = true, updatable = true, length = 10, precision = 0)
+    public int getQuesId() {
+        return quesId;
+    }
+
+    public void setQuesId(int quesId) {
+        this.quesId = quesId;
+    }
+    @ManyToOne
+    @JoinColumn(name = "ques_id", referencedColumnName = "id",insertable = false,updatable = false)
+    public MyQuestion getMyQuestion() {
+        return myQuestion;
+    }
+
+    public void setMyQuestion(MyQuestion myQuestion) {
+        this.myQuestion = myQuestion;
+    }
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)

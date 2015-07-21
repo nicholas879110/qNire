@@ -44,8 +44,8 @@ public class VideoServiceImpl implements VideoService {
     private static final String SOURCE_FOLDER = "/VIDEO_FILE";
     @Autowired
     private VideoDao videoDao;
-    @Autowired
-    private ServletContext context;
+ /*   @Autowired
+    private ServletContext context;*/
     @Autowired
     private UnitService unitService;
 
@@ -83,57 +83,57 @@ public class VideoServiceImpl implements VideoService {
     @Override
     public void saveVideo(String unitId, String ch, String en, MultipartFile file, Byte aLong) {
 
-        SysUser sysUser = UserUtil.getUser().getSysUser();
-
-        String srcFolderPath = context.getRealPath(SOURCE_FOLDER) + "/" + sysUser.getUsername();
-        File srcFolder = new File(srcFolderPath);
-        if (!srcFolder.exists()) {
-            srcFolder.mkdirs();
-        }
-
-        // 上传文件名
-        String fileName = file.getOriginalFilename();
-        String filePath = srcFolderPath + "/" + fileName;
-        File temp = new File(filePath);
-        try {
-            if (!temp.exists()) {
-                temp.createNewFile();
-            }
-            FileOutputStream fos = new FileOutputStream(temp);
-            IOUtils.copyLarge(file.getInputStream(), fos);
-            fos.close();
-            //视频截图
-//            filePath = unifyFilePath(objectFile.getAbsolutePath());
-            String imageFilePath = StringUtils.substringBeforeLast(filePath, ".") + ".png";
-            FfmpegUtil.CatchImg(filePath, imageFilePath);
-//            File imgeFile = new File(imageFilePath);
-//            BufferedImage imgFile = ImageIO.read(new FileInputStream(imgeFile));
-//            ppObject.setXtype(xtype);
-//            ppObject.setWidth(imgFile.getWidth());
-//            ppObject.setHeight(imgFile.getHeight());
-//            ppObject.setFileName(objectFile.getName());
-//            ppObject.setUrl(resourceFolder + "/" + objectFile.getName());
+//        SysUser sysUser = UserUtil.getUser().getSysUser();
 //
-//            filePath = unifyFilePath(imgeFile.getAbsolutePath());
-//            filePath = StringUtils.substringAfter(filePath, wksc.web.extjs.Programme.IDE_PREVIEW);
-//            ppObject.setFilePath(wksc.web.extjs.Programme.IDE_PREVIEW + filePath);
-            Video video = new Video();
-            video.setName(StringUtils.substringBefore(fileName,"."));
-            video.setCh(ch);
-            video.setEn(en);
-            video.setLength(file.getSize());
-            if (StringUtils.isNotBlank(unitId)) {
-                Unit unit = unitService.queryUnit(unitId);
-                video.setUnit(unit);
-            }
-            video.setCreateUser(UserUtil.getUser().getSysUser());
-            video.setIsLong(aLong);
-            video.setUrl(SOURCE_FOLDER + "/" + sysUser.getUsername() + "/" + fileName);
-            video.setFirstFrame(SOURCE_FOLDER + "/" + sysUser.getUsername() + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".png");
-            videoDao.save(video);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+////        String srcFolderPath = context.getRealPath(SOURCE_FOLDER) + "/" + sysUser.getUsername();
+////        File srcFolder = new File(srcFolderPath);
+////        if (!srcFolder.exists()) {
+////            srcFolder.mkdirs();
+////        }
+////
+////        // 上传文件名
+////        String fileName = file.getOriginalFilename();
+////        String filePath = srcFolderPath + "/" + fileName;
+////        File temp = new File(filePath);
+////        try {
+////            if (!temp.exists()) {
+////                temp.createNewFile();
+////            }
+////            FileOutputStream fos = new FileOutputStream(temp);
+////            IOUtils.copyLarge(file.getInputStream(), fos);
+////            fos.close();
+////            //视频截图
+//////            filePath = unifyFilePath(objectFile.getAbsolutePath());
+////            String imageFilePath = StringUtils.substringBeforeLast(filePath, ".") + ".png";
+////            FfmpegUtil.CatchImg(filePath, imageFilePath);
+//////            File imgeFile = new File(imageFilePath);
+//////            BufferedImage imgFile = ImageIO.read(new FileInputStream(imgeFile));
+//////            ppObject.setXtype(xtype);
+//////            ppObject.setWidth(imgFile.getWidth());
+//////            ppObject.setHeight(imgFile.getHeight());
+//////            ppObject.setFileName(objectFile.getName());
+//////            ppObject.setUrl(resourceFolder + "/" + objectFile.getName());
+//////
+//////            filePath = unifyFilePath(imgeFile.getAbsolutePath());
+//////            filePath = StringUtils.substringAfter(filePath, wksc.web.extjs.Programme.IDE_PREVIEW);
+//////            ppObject.setFilePath(wksc.web.extjs.Programme.IDE_PREVIEW + filePath);
+////            Video video = new Video();
+////            video.setName(StringUtils.substringBefore(fileName,"."));
+////            video.setCh(ch);
+////            video.setEn(en);
+////            video.setLength(file.getSize());
+////            if (StringUtils.isNotBlank(unitId)) {
+////                Unit unit = unitService.queryUnit(unitId);
+////                video.setUnit(unit);
+////            }
+////            video.setCreateUser(UserUtil.getUser().getSysUser());
+////            video.setIsLong(aLong);
+////            video.setUrl(SOURCE_FOLDER + "/" + sysUser.getUsername() + "/" + fileName);
+////            video.setFirstFrame(SOURCE_FOLDER + "/" + sysUser.getUsername() + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".png");
+////            videoDao.save(video);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
 
     }
@@ -142,53 +142,53 @@ public class VideoServiceImpl implements VideoService {
     public void updateVideo(String videoId, String ch, String en, MultipartFile file) {
         SysUser sysUser = UserUtil.getUser().getSysUser();
 
-        Video video = videoDao.get(Video.class, videoId);
-        try {
-            if (!file.isEmpty()) {
-                String srcFolderPath = context.getRealPath(SOURCE_FOLDER) + "/" + sysUser.getUsername();
-                File srcFolder = new File(srcFolderPath);
-                if (!srcFolder.exists()) {
-                    srcFolder.mkdirs();
-                }
-
-                // 上传文件名
-                String fileName = file.getOriginalFilename();
-                String filePath = srcFolderPath + "/" + fileName;
-                File temp = new File(filePath);
-                if (!temp.exists()) {
-                    temp.createNewFile();
-                }
-                FileOutputStream fos = new FileOutputStream(temp);
-                IOUtils.copyLarge(file.getInputStream(), fos);
-                fos.close();
-                //视频截图
-//            filePath = unifyFilePath(objectFile.getAbsolutePath());
-                String imageFilePath = StringUtils.substringBeforeLast(filePath, ".") + ".png";
-                FfmpegUtil.CatchImg(filePath, imageFilePath);
-                video.setName(fileName);
-                video.setUrl(SOURCE_FOLDER + "/" + sysUser.getUsername() + "/" + fileName);
-                video.setFirstFrame(SOURCE_FOLDER + "/" + sysUser.getUsername() + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".png");
-            }
-
-//            File imgeFile = new File(imageFilePath);
-//            BufferedImage imgFile = ImageIO.read(new FileInputStream(imgeFile));
-//            ppObject.setXtype(xtype);
-//            ppObject.setWidth(imgFile.getWidth());
-//            ppObject.setHeight(imgFile.getHeight());
-//            ppObject.setFileName(objectFile.getName());
-//            ppObject.setUrl(resourceFolder + "/" + objectFile.getName());
+//        Video video = videoDao.get(Video.class, videoId);
+//        try {
+//            if (!file.isEmpty()) {
+//                String srcFolderPath = context.getRealPath(SOURCE_FOLDER) + "/" + sysUser.getUsername();
+//                File srcFolder = new File(srcFolderPath);
+//                if (!srcFolder.exists()) {
+//                    srcFolder.mkdirs();
+//                }
 //
-//            filePath = unifyFilePath(imgeFile.getAbsolutePath());
-//            filePath = StringUtils.substringAfter(filePath, wksc.web.extjs.Programme.IDE_PREVIEW);
-//            ppObject.setFilePath(wksc.web.extjs.Programme.IDE_PREVIEW + filePath);
-
-
-            video.setCh(ch);
-            video.setEn(en);
-            videoDao.update(video);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+//                // 上传文件名
+//                String fileName = file.getOriginalFilename();
+//                String filePath = srcFolderPath + "/" + fileName;
+//                File temp = new File(filePath);
+//                if (!temp.exists()) {
+//                    temp.createNewFile();
+//                }
+//                FileOutputStream fos = new FileOutputStream(temp);
+//                IOUtils.copyLarge(file.getInputStream(), fos);
+//                fos.close();
+//                //视频截图
+////            filePath = unifyFilePath(objectFile.getAbsolutePath());
+//                String imageFilePath = StringUtils.substringBeforeLast(filePath, ".") + ".png";
+//                FfmpegUtil.CatchImg(filePath, imageFilePath);
+//                video.setName(fileName);
+//                video.setUrl(SOURCE_FOLDER + "/" + sysUser.getUsername() + "/" + fileName);
+//                video.setFirstFrame(SOURCE_FOLDER + "/" + sysUser.getUsername() + "/" + StringUtils.substringBeforeLast(fileName, ".") + ".png");
+//            }
+//
+////            File imgeFile = new File(imageFilePath);
+////            BufferedImage imgFile = ImageIO.read(new FileInputStream(imgeFile));
+////            ppObject.setXtype(xtype);
+////            ppObject.setWidth(imgFile.getWidth());
+////            ppObject.setHeight(imgFile.getHeight());
+////            ppObject.setFileName(objectFile.getName());
+////            ppObject.setUrl(resourceFolder + "/" + objectFile.getName());
+////
+////            filePath = unifyFilePath(imgeFile.getAbsolutePath());
+////            filePath = StringUtils.substringAfter(filePath, wksc.web.extjs.Programme.IDE_PREVIEW);
+////            ppObject.setFilePath(wksc.web.extjs.Programme.IDE_PREVIEW + filePath);
+//
+//
+//            video.setCh(ch);
+//            video.setEn(en);
+//            videoDao.update(video);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

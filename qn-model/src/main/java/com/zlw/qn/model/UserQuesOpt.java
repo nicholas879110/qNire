@@ -19,6 +19,27 @@ public class UserQuesOpt {
     private int id;
     private String answer;
     private Integer checked;
+    private UserQuestion userQuestion;
+    private MyQuestionOption questionOption;
+
+    @ManyToOne
+    @JoinColumn(name = "user_ques_id", referencedColumnName = "id",insertable = false,updatable = false)
+    public UserQuestion getUserQuestion() {
+        return userQuestion;
+    }
+
+    public void setUserQuestion(UserQuestion userQuestion) {
+        this.userQuestion = userQuestion;
+    }
+    @ManyToOne
+    @JoinColumn(name = "opt_id", referencedColumnName = "id",insertable = false,updatable = false)
+    public MyQuestionOption getQuestionOption() {
+        return questionOption;
+    }
+
+    public void setQuestionOption(MyQuestionOption questionOption) {
+        this.questionOption = questionOption;
+    }
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)

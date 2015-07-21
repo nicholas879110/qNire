@@ -74,10 +74,10 @@ public class MyTag {
         return result;
     }
 
-   /* @OneToMany(mappedBy = "myTagByTagId")
+    @OneToMany(mappedBy = "myTagByTagId")
     public Set<MyQuestion> getMyQuestionsById() {
         return myQuestionsById;
-    }*/
+    }
 
     public void setMyQuestionsById(Set<MyQuestion> myQuestionsById) {
         this.myQuestionsById = myQuestionsById;

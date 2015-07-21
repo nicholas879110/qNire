@@ -89,10 +89,10 @@ public class MyQuestionType {
         return result;
     }
 
-    /*@OneToMany(mappedBy = "myQuestionTypeByQtype")
+    @OneToMany(mappedBy = "myQuestionTypeByQtype")
     public Set<MyQuestion> getMyQuestionsById() {
         return myQuestionsById;
-    }*/
+    }
 
     public void setMyQuestionsById(Set<MyQuestion> myQuestionsById) {
         this.myQuestionsById = myQuestionsById;

@@ -26,8 +26,8 @@ import javax.servlet.ServletContext;
 @Component
 public class FfmpegUtil {
 
-    @Autowired
-    private ServletContext context;
+//    @Autowired
+//    private ServletContext context;
 
     private static final Logger log=LoggerFactory.getLogger(FfmpegUtil.class);
 

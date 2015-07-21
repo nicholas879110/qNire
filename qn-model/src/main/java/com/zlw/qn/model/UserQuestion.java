@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * Title: qNire<br>
@@ -18,7 +19,27 @@ import java.sql.Timestamp;
 @Table(name = "user_question", schema = "", catalog = "vote")
 public class UserQuestion {
     private int id;
-    private Timestamp createTime;
+    private Date createTime;
+    private MyQuestion myQuestion;
+    private CustomUser customUser;
+    @ManyToOne
+    @JoinColumn(name = "ques_id", referencedColumnName = "id",insertable = false,updatable = false)
+    public MyQuestion getMyQuestion() {
+        return myQuestion;
+    }
+
+    public void setMyQuestion(MyQuestion myQuestion) {
+        this.myQuestion = myQuestion;
+    }
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "id",insertable = false,updatable = false)
+    public CustomUser getCustomUser() {
+        return customUser;
+    }
+
+    public void setCustomUser(CustomUser customUser) {
+        this.customUser = customUser;
+    }
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -34,11 +55,11 @@ public class UserQuestion {
 
     @Basic
     @Column(name = "create_time", nullable = true, insertable = true, updatable = true, length = 19, precision = 0)
-    public Timestamp getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Timestamp createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 

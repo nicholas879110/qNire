@@ -3,6 +3,7 @@ package com.zlw.qn.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -27,6 +28,26 @@ public class MyQuestion {
     private MyTag myTagByTagId;
     private MyQuestionType myQuestionTypeByQtype;
     private Set<MyRefNaireQuestion> myRefNaireQuestionsById;
+    private Set<MyQuestionOption> myQuestionOptions;
+
+    private List<MyQuestionOption> myQuestionOptionList;
+
+    public List<MyQuestionOption> queryMyQuestionOptionList() {
+        return myQuestionOptionList;
+    }
+
+    public void setMyQuestionOptionList(List<MyQuestionOption> myQuestionOptionList) {
+        this.myQuestionOptionList = myQuestionOptionList;
+    }
+
+    @OneToMany(mappedBy = "myQuestion")
+    public Set<MyQuestionOption> getMyQuestionOptions() {
+        return myQuestionOptions;
+    }
+
+    public void setMyQuestionOptions(Set<MyQuestionOption> myQuestionOptions) {
+        this.myQuestionOptions = myQuestionOptions;
+    }
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true, length = 10, precision = 0)
@@ -41,7 +62,7 @@ public class MyQuestion {
     }
 
     @Basic
-    @Column(name = "title", nullable = true, insertable = true, updatable = true, length = 255, precision = 0)
+    @Column(name = "title", nullable = true, insertable = true, updatable = true, length = 400, precision = 0)
     public String getTitle() {
         return title;
     }
