@@ -12,14 +12,14 @@
         <h1>
             用户列表
             <small class="">
-                <button class="btn btn-minier btn-info" type="button" id="add-btn">新增</button>
+               <%-- <button class="btn btn-minier btn-info" type="button" id="add-btn">新增</button>
                 <button class="btn btn-minier btn-info" type="button" id="edit-btn">编辑</button>
                 <button class="btn btn-minier btn-info" type="button" id="delete-btn">删除</button>
                 <button class="btn btn-minier btn-info" type="button" id="edit-content-btn">文卷内容编辑</button>
                 <button class="btn btn-minier btn-info" type="button" id="deploy-btn">发布文卷</button>
                 <button class="btn btn-minier btn-info" type="button" id="cancel-btn">撤销</button>
                 <button class="btn btn-minier btn-info" type="button" id="preview-btn">预览</button>
-                <button class="btn btn-minier btn-info" type="button" id="count-btn">查看统计结果</button>
+                <button class="btn btn-minier btn-info" type="button" id="count-btn">查看统计结果</button>--%>
             </small>
         </h1>
     </div>
@@ -63,7 +63,7 @@
 <script type="text/javascript">
 jQuery(function ($) {
     var  t=$("#userList").dataTable({
-        "sAjaxSource": getContentPath() + "/qn/pager.do",
+        "sAjaxSource": getContentPath() + "/user/pager.do",
         "columnDefs": [ {
             "searchable": false,
             "orderable": false,
@@ -101,19 +101,30 @@ jQuery(function ($) {
             },
             { "sWidth": "15%", "sTitle": "收入", "sClass": "center", "mData": "salary", "bSortable": false },
             { "sWidth": "12%", "sTitle": "学历", "sClass": "center", "mData": "education", "bSortable": false },
-            { "sWidth": "12%", "sTitle": "已婚", "sClass": "center", "mData": "married", "bSortable": false },
+            { "sWidth": "12%", "sTitle": "已婚", "sClass": "center", "mData": "married", "bSortable": false ,
+                "mRender": function ( data, type, row ) {
+                    if(data==0){
+                        return "否"
+                    }else if(data==1){
+                        return "是"
+                    }else
+                    {
+                        return "";
+                    }
+
+                }},
             { "sWidth": "12%", "sTitle": "星座", "sClass": "center", "mData": "star", "bSortable": false },
             { "sWidth": "12%", "sTitle": "年龄", "sClass": "center", "mData": "age", "bSortable": false },
-            { "sWidth": "13%", "sTitle": "操作", "sClass": "center", "mData": "id", "bSortable": false  }
+            { "sWidth": "20%", "sTitle": "操作", "sClass": "center", "mData": "id", "bSortable": false  }
         ],
         "aaSorting": [],
         "aLengthMenu": [ 10, 20, 30 ],
         "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
             $('td:eq(0)', nRow).html('<label><input type="radio" class="ace" name="id" value="' + aData["id"] + '" /><span style="width:0px;" class="lbl"></span></label>');
             var operation = '<div class="visible-md visible-lg hidden-sm hidden-xs action-buttons">'
-                    + '<a href="javascript:void(0)" onclick="updateVideo(this)" class="blue" title="edit"><i class="icon-edit bigger-130"></i></a>'
-                    + '<a href="javascript:void(0)" onclick="deleteVideo(this)" class="red" title="delete"><i class="icon-remove bigger-130"></i></a>'
-                    + '<a href="javascript:void(0)" onclick="playVideo(this);" class="yellow" title="play"><i class=" icon-facetime-mgr bigger-130"></i></a>'
+                    + '<a href="javascript:void(0)" onclick="count(this)" class="blue" title="edit"><!--<i class="icon-edit bigger-130"></i>-->问题统计</a>'
+//                    + '<a href="javascript:void(0)" onclick="deleteVideo(this)" class="red" title="delete"><i class="icon-remove bigger-130"></i></a>'
+//                    + '<a href="javascript:void(0)" onclick="playVideo(this);" class="yellow" title="play"><i class=" icon-facetime-mgr bigger-130"></i></a>'
                     + "</div>";
             $('td:last', nRow).html(operation);
         },
@@ -226,7 +237,9 @@ jQuery(function ($) {
 
 })
 
-
+function count(dom){
+    switchPage("/user/count.do");
+}
 
 /* function updateVideo(dom) {
  var sData = $('#lvList').dataTable().fnGetData($(dom).parents("#lvList tr").get(0));

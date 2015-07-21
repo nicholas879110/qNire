@@ -22,6 +22,28 @@ public class UserQuestion {
     private Date createTime;
     private MyQuestion myQuestion;
     private CustomUser customUser;
+    private int userId;
+    private int quesId;
+
+    @Basic
+    @Column(name = "user_id", nullable = true, insertable = true, updatable = true, length = 19, precision = 0)
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+    @Basic
+    @Column(name = "ques_id", nullable = true, insertable = true, updatable = true, length = 19, precision = 0)
+    public int getQuesId() {
+        return quesId;
+    }
+
+    public void setQuesId(int quesId) {
+        this.quesId = quesId;
+    }
+
     @ManyToOne
     @JoinColumn(name = "ques_id", referencedColumnName = "id",insertable = false,updatable = false)
     public MyQuestion getMyQuestion() {

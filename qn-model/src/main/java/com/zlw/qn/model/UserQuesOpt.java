@@ -22,6 +22,29 @@ public class UserQuesOpt {
     private UserQuestion userQuestion;
     private MyQuestionOption questionOption;
 
+    private int uqId;
+    private int qoId;
+
+    @Basic
+    @Column(name = "user_ques_id", nullable = true, insertable = true, updatable = true, length = 19, precision = 0)
+    public int getUqId() {
+        return uqId;
+    }
+
+    public void setUqId(int uqId) {
+        this.uqId = uqId;
+    }
+
+    @Basic
+    @Column(name = "opt_id", nullable = true, insertable = true, updatable = true, length = 19, precision = 0)
+    public int getQoId() {
+        return qoId;
+    }
+
+    public void setQoId(int qoId) {
+        this.qoId = qoId;
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_ques_id", referencedColumnName = "id",insertable = false,updatable = false)
     public UserQuestion getUserQuestion() {

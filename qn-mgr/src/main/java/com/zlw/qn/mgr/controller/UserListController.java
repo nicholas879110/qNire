@@ -37,6 +37,13 @@ public class UserListController {
         return mav;
     }
 
+    @RequestMapping(value = "count")
+    public ModelAndView count(){
+        ModelAndView mav=new ModelAndView();
+        mav.setViewName("/userList/pieQues");
+        return mav;
+    }
+
     @ResponseBody
     @RequestMapping(value = "/pager")
     public Pager<UserDomain> pager(PagerQuery pagerQuery) {

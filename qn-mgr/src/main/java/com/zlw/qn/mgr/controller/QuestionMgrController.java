@@ -44,6 +44,15 @@ public class QuestionMgrController {
         mav.addObject("types",typeList);
         return mav;
     }
+    @RequestMapping(value = "count")
+    public ModelAndView count(){
+        ModelAndView mav=new ModelAndView();
+        mav.setViewName("/questionMgr/pieQues");
+
+        return mav;
+    }
+
+
 
     @RequestMapping(value = "detailInit")
     public ModelAndView detailInit(String id){
