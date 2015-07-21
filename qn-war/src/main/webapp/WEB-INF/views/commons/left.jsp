@@ -25,6 +25,15 @@
                     <span class="menu-text">题库管理</span>
                 </a>
             </li>
+
+            <li>
+                <a href="#"  view="/questionMgr/count.do">
+                    <i class="icon-edit"></i>
+                    <span class="menu-text">问题情况统计</span>
+                </a>
+            </li>
+
+
        <%-- </sec:authorize>
         <sec:authorize ifAnyGranted="USER_TEA_MGR">--%>
             <li>
